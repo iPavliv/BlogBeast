@@ -18,11 +18,7 @@ AUTH_BLUEPRINT = Blueprint('auth', __name__)
 class SignUpResource(Resource):
     def post(self):
         new_user = load_data_with_schema(schema=UserSignUpSchema, json=request.json)
-        user = User(
-            username=new_user['username'],
-            email=new_user['email'],
-            password=new_user['password'],
-        )
+        user = User(username=new_user['username'], email=new_user['email'], password=new_user['password'])
 
         DB.session.add(user)
 
