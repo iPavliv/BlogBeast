@@ -1,15 +1,27 @@
 import os
-from app_back import create_app, db
+
+from flask_cors import CORS
+
+from app_back import create_app, DB
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
 
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
-manager = Manager(app)
-migrate = Migrate(app, db)
+from app_back.models import User
+from app_back.views.auth_view import AUTH_BLUEPRINT
+from app_back.views.index_view import INDEX_BLUEPRINT
+
+APP = create_app(os.getenv('FLASK_CONFIG') or 'default')
+manager = Manager(APP)
+migrate = Migrate(APP, DB)
+
+APP.register_blueprint(AUTH_BLUEPRINT)
+APP.register_blueprint(INDEX_BLUEPRINT)
+
+CORS(APP, supports_credentials=True)
 
 
 def make_shell_context():
-    return dict(app=app, db=db)
+    return dict(app=APP, db=DB, User=User)
 
 
 manager.add_command('shell', Shell(make_context=make_shell_context))
