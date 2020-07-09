@@ -13,6 +13,7 @@ class User(DB.Model):
     password_hash = DB.Column(DB.String(128))
 
     posts = relationship('Post', backref='users', lazy='dynamic')
+    likes = relationship('Like', backref='users', lazy='dynamic')
 
     @property
     def password(self):
@@ -40,3 +41,13 @@ class Post(DB.Model):
     post_text = DB.Column(DB.Text)
     author_id = DB.Column(DB.Integer, ForeignKey('users.user_id'))
     post_date = DB.Column(DB.DateTime)
+
+    likes = relationship('Like', backref='posts', lazy='dynamic')
+
+
+class Like(DB.Model):
+    __tablename__ = 'likes'
+    like_id = DB.Column(DB.Integer, primary_key=True)
+    post_id = DB.Column(DB.Integer, ForeignKey('posts.post_id'))
+    user_id = DB.Column(DB.Integer, ForeignKey('users.user_id'))
+    like_date = DB.Column(DB.DateTime)
