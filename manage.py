@@ -1,5 +1,7 @@
 import os
+from datetime import datetime
 
+from flask import g
 from flask_cors import CORS
 
 from app_back import create_app, DB
@@ -7,6 +9,7 @@ from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
 
 from app_back.models import User, Followings
+from app_back.views.activity_view import ACTIVITY_BLUEPRINT
 from app_back.views.auth_view import AUTH_BLUEPRINT
 from app_back.views.followers_view import FOLLOWER_BLUEPRINT
 from app_back.views.index_view import INDEX_BLUEPRINT
@@ -20,6 +23,13 @@ APP.register_blueprint(AUTH_BLUEPRINT)
 APP.register_blueprint(INDEX_BLUEPRINT)
 APP.register_blueprint(FOLLOWER_BLUEPRINT)
 APP.register_blueprint(POST_BLUEPRINT)
+APP.register_blueprint(ACTIVITY_BLUEPRINT)
+
+
+@APP.before_request
+def before_request():
+    g.request_start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
 
 CORS(APP, supports_credentials=True)
 
