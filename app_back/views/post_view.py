@@ -6,7 +6,7 @@ from flask_restful import Resource
 from sqlalchemy import desc
 
 from .. import API, DB
-from ..models import Post
+from ..models import Post, Like
 from ..schemas.auth_schemas import CreatePostSchema, PostLoadSchema
 from ..utils import login_required, get_current_user_id, load_data_with_schema
 
@@ -51,4 +51,33 @@ class PostResource(Resource):
         return response, status.HTTP_200_OK
 
 
+class LikePostResource(Resource):
+    @login_required
+    def post(self):
+        user_id = get_current_user_id()
+
+        is_liked = Like.query.filter(Like.post_id == request.json['post_id']).filter(Like.user_id == user_id).first()
+        if is_liked:
+            DB.session.delete(is_liked)
+            DB.session.commit()
+
+            response = {'message': 'Unlike.'}
+            return response, status.HTTP_200_OK
+
+        like = Like(post_id=request.json['post_id'], user_id=user_id, like_date=datetime.now())
+
+        DB.session.add(like)
+        DB.session.commit()
+
+        response = {'message': 'Like.'}
+        return response, status.HTTP_200_OK
+
+    @login_required
+    def get(self):
+        like = Like.query.filter(Like.post_id == request.json['post_id']).all()
+
+        return len(like), status.HTTP_200_OK
+
+
 API.add_resource(PostResource, '/posts')
+API.add_resource(LikePostResource, '/like')
