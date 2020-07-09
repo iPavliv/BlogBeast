@@ -1,3 +1,5 @@
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship, backref
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app_back import DB
@@ -20,3 +22,10 @@ class User(DB.Model):
 
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+
+class Followings(DB.Model):
+    __tablename__ = 'followings'
+    followings_id = DB.Column(DB.Integer, primary_key=True)
+    follower = DB.Column(DB.Integer, ForeignKey('users.user_id'))
+    follows = DB.Column(DB.Integer, ForeignKey('users.user_id'))

@@ -1,5 +1,5 @@
 from marshmallow import fields, validates, ValidationError
-from marshmallow.validate import Equal, Length, Regexp
+from marshmallow.validate import Length, Regexp
 
 from app_back import MA
 
