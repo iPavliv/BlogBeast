@@ -7,7 +7,7 @@ from flask_jwt_extended import decode_token
 from flask_restful import abort
 from marshmallow import ValidationError
 
-from app_back.constants import AUTH_TOKEN_KEY, USER_IDENTITY
+from app_back.constants import AUTH_TOKEN_KEY, USER_IDENTITY, PAGE, PER_PAGE, DEFAULT_PAGE, DEFAULT_PER_PAGE
 
 
 def load_data_with_schema(schema, json):
@@ -38,3 +38,10 @@ def get_current_user_id():
 def date_range(start_date, end_date):
     for n in range(int((end_date - start_date).days) + 1):
         yield datetime.date(start_date + timedelta(n))
+
+
+def get_pagination():
+    page = request.args.get(PAGE) or DEFAULT_PAGE
+    per_page = request.args.get(PER_PAGE) or DEFAULT_PER_PAGE
+
+    return page, per_page
