@@ -1,3 +1,4 @@
+from datetime import timedelta, datetime
 from functools import wraps
 
 from flask import session, request, url_for, redirect
@@ -32,3 +33,8 @@ def get_current_user_id():
     access_token = session[AUTH_TOKEN_KEY]
     user_info = decode_token(access_token)
     return user_info[USER_IDENTITY]
+
+
+def date_range(start_date, end_date):
+    for n in range(int((end_date - start_date).days) + 1):
+        yield datetime.date(start_date + timedelta(n))

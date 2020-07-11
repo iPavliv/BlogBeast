@@ -9,7 +9,7 @@ from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
 
 from app_back.models import User, Followings
-from app_back.views.activity_view import ACTIVITY_BLUEPRINT
+from app_back.views.curr_user_data_view import CURR_USER_DATA_BLUEPRINT
 from app_back.views.auth_view import AUTH_BLUEPRINT
 from app_back.views.followers_view import FOLLOWER_BLUEPRINT
 from app_back.views.index_view import INDEX_BLUEPRINT
@@ -23,7 +23,7 @@ APP.register_blueprint(AUTH_BLUEPRINT)
 APP.register_blueprint(INDEX_BLUEPRINT)
 APP.register_blueprint(FOLLOWER_BLUEPRINT)
 APP.register_blueprint(POST_BLUEPRINT)
-APP.register_blueprint(ACTIVITY_BLUEPRINT)
+APP.register_blueprint(CURR_USER_DATA_BLUEPRINT)
 
 
 @APP.before_request

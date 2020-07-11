@@ -7,7 +7,7 @@ from sqlalchemy import desc
 
 from .. import API, DB
 from ..models import Post, Like
-from ..schemas.auth_schemas import CreatePostSchema, PostLoadSchema
+from ..marshmallow_schemas import CreatePostSchema, PostLoadSchema
 from ..utils import login_required, get_current_user_id, load_data_with_schema
 
 POST_BLUEPRINT = Blueprint('post', __name__)
@@ -31,7 +31,7 @@ class PostResource(Resource):
 
     @login_required
     def get(self):
-        post_list = Post.query.filter(Post.author_id == request.json['user_id']).order_by(
+        post_list = Post.query.filter(Post.author_id == request.args['user_id']).order_by(
             desc(Post.post_date)).limit(15)
         posts = PostLoadSchema(many=True).dump(post_list)
 
@@ -74,7 +74,7 @@ class LikePostResource(Resource):
 
     @login_required
     def get(self):
-        like = Like.query.filter(Like.post_id == request.json['post_id']).all()
+        like = Like.query.filter(Like.post_id == request.args['post_id']).all()
 
         return len(like), status.HTTP_200_OK
 

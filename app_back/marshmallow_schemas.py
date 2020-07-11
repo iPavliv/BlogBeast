@@ -1,7 +1,7 @@
 from marshmallow import fields, validates, ValidationError
 from marshmallow.validate import Length, Regexp
 
-from app_back import MA
+from . import MA
 
 
 class UserSignUpSchema(MA.Schema):
@@ -42,3 +42,16 @@ class PostLoadSchema(MA.Schema):
     post_text = fields.Str()
     post_date = fields.Str()
     users = fields.Nested(UserInfoSchema)
+
+
+class PostIdsSchema(MA.Schema):
+    post_id = fields.Integer()
+
+
+class PostGeneralSchema(MA.Schema):
+    header = fields.Str()
+
+
+class LikeSchema(MA.Schema):
+    user = fields.Nested(UserInfoSchema)
+    post = fields.Nested(PostGeneralSchema)
