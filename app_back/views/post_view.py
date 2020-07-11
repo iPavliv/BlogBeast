@@ -8,7 +8,7 @@ from sqlalchemy import desc
 from .. import API, DB
 from ..models import Post, Like
 from ..marshmallow_schemas import CreatePostSchema, PostLoadSchema
-from ..utils import login_required, get_current_user_id, load_data_with_schema
+from ..utils import login_required, get_current_user_id, load_data_with_schema, get_pagination
 
 POST_BLUEPRINT = Blueprint('post', __name__)
 
@@ -31,8 +31,10 @@ class PostResource(Resource):
 
     @login_required
     def get(self):
+        page, per_page = get_pagination()
+
         post_list = Post.query.filter(Post.author_id == request.args['user_id']).order_by(
-            desc(Post.post_date)).limit(15)
+            desc(Post.post_date)).paginate(page=page, per_page=per_page)
         posts = PostLoadSchema(many=True).dump(post_list)
 
         return posts, status.HTTP_200_OK
@@ -74,9 +76,9 @@ class LikePostResource(Resource):
 
     @login_required
     def get(self):
-        like = Like.query.filter(Like.post_id == request.args['post_id']).all()
+        like = Like.query.filter(Like.post_id == request.args['post_id']).count()
 
-        return len(like), status.HTTP_200_OK
+        return like, status.HTTP_200_OK
 
 
 API.add_resource(PostResource, '/posts')

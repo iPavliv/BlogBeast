@@ -1,4 +1,4 @@
-from marshmallow import fields, validates, ValidationError
+from marshmallow import fields, validates, ValidationError, post_dump
 from marshmallow.validate import Length, Regexp
 
 from . import MA
@@ -37,18 +37,26 @@ class UserInfoSchema(MA.Schema):
     username = fields.Str()
 
 
+class LikeCountSchema(MA.Schema):
+    like_id = fields.Integer()
+    user = fields.Nested(UserInfoSchema)
+
+
 class PostLoadSchema(MA.Schema):
     header = fields.Str()
     post_text = fields.Str()
     post_date = fields.Str()
     users = fields.Nested(UserInfoSchema)
+    likes = fields.Nested(LikeCountSchema, many=True)
 
-
-class PostIdsSchema(MA.Schema):
-    post_id = fields.Integer()
+    @post_dump
+    def like_count(self, data, **kwargs):
+        data['like_count'] = len(data['likes'])
+        return data
 
 
 class PostGeneralSchema(MA.Schema):
+    post_id = fields.Integer()
     header = fields.Str()
 
 

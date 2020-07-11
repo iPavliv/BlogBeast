@@ -1,5 +1,7 @@
+import logging
+from datetime import datetime
+
 from flask import Flask
-from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_marshmallow import Marshmallow
 from flask_restful import Api
@@ -18,6 +20,14 @@ def create_app(config_name):
 
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
+
+    logger = logging.getLogger('root')
+
+    fh = logging.FileHandler('logs/{:%Y-%m-%d}.log'.format(datetime.now()))
+    formatter = logging.Formatter('%(asctime)s  %(levelname)-8s : %(lineno)04d : %(message)s')
+    fh.setFormatter(formatter)
+
+    logger.addHandler(fh)
 
     DB.init_app(app)
     API.init_app(app)

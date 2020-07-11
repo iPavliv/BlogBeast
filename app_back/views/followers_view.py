@@ -4,7 +4,7 @@ from flask_restful import Resource
 
 from .. import API, DB
 from ..models import Followings, User
-from ..utils import login_required, get_current_user_id
+from ..utils import login_required, get_current_user_id, get_pagination
 
 FOLLOWER_BLUEPRINT = Blueprint('follower', __name__)
 
@@ -29,12 +29,13 @@ class FollowsResource(Resource):
     @login_required
     def get(self):
         user_id = get_current_user_id()
+        page, per_page = get_pagination()
 
-        friends_list = Followings.query.filter(Followings.follower == user_id).limit(15)
+        friends_list = Followings.query.filter(Followings.follower == user_id).paginate(page=page, per_page=per_page)
         friends = []
         for friend in friends_list:
-            user = User.query.filter(User.user_id == friend.follows)
-            friends.append({'username': user[0].username, 'user_id': user[0].user_id})
+            user = User.query.filter(User.user_id == friend.follows).first()
+            friends.append({'username': user.username, 'user_id': user.user_id})
 
         return friends, status.HTTP_200_OK
 
@@ -43,12 +44,13 @@ class FollowerResource(Resource):
     @login_required
     def get(self):
         user_id = get_current_user_id()
+        page, per_page = get_pagination()
 
-        friends_list = Followings.query.filter(Followings.follows == user_id).limit(15)
+        friends_list = Followings.query.filter(Followings.follows == user_id).paginate(page=page, per_page=per_page)
         friends = []
         for friend in friends_list:
-            user = User.query.filter(User.user_id == friend.follows)
-            friends.append({'username': user[0].username, 'user_id': user[0].user_id})
+            user = User.query.filter(User.user_id == friend.follows).first()
+            friends.append({'username': user.username, 'user_id': user.user_id})
 
         return friends, status.HTTP_200_OK
 

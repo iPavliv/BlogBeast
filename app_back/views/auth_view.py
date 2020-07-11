@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 
 from flask import session, url_for, redirect, request, Blueprint
@@ -13,6 +14,7 @@ from ..marshmallow_schemas import UserSignUpSchema, UserSignInSchema
 from ..utils import load_data_with_schema, login_required
 
 AUTH_BLUEPRINT = Blueprint('auth', __name__)
+LOGGER = logging.getLogger('root')
 
 
 class SignUpResource(Resource):
@@ -25,7 +27,7 @@ class SignUpResource(Resource):
         try:
             DB.session.commit()
         except IntegrityError as err:
-            # APP.logger.error(err.args)
+            LOGGER.error(err.args)
             DB.session.rollback()
 
             response = {'error': 'User already exists.'}
@@ -41,7 +43,7 @@ class SignInResource(Resource):
 
         user = User.query.filter_by(email=user_data['email']).first()
         if user and user.verify_password(user_data['password']):
-            access_token = create_access_token(identity=user.user_id, expires_delta=False)
+            access_token = create_access_token(identity=user.user_id)
             session[AUTH_TOKEN_KEY] = access_token
             session[AUTH_TIME] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
