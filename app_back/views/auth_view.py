@@ -9,7 +9,7 @@ from sqlalchemy.exc import IntegrityError
 from .. import DB, API
 from ..constants import AUTH_TOKEN_KEY, AUTH_TIME
 from ..models import User
-from ..schemas.auth_schemas import UserSignUpSchema, UserSignInSchema
+from ..marshmallow_schemas import UserSignUpSchema, UserSignInSchema
 from ..utils import load_data_with_schema, login_required
 
 AUTH_BLUEPRINT = Blueprint('auth', __name__)
