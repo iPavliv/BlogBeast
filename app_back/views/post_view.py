@@ -35,7 +35,7 @@ class PostResource(Resource):
 
         post_list = Post.query.filter(Post.author_id == request.args['user_id']).order_by(
             desc(Post.post_date)).paginate(page=page, per_page=per_page)
-        posts = PostLoadSchema(many=True).dump(post_list)
+        posts = PostLoadSchema(many=True).dump(post_list.items)
 
         return posts, status.HTTP_200_OK
 

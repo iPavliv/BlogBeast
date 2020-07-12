@@ -2,6 +2,7 @@ import logging
 from datetime import datetime
 
 from flask import Flask
+from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_marshmallow import Marshmallow
 from flask_restful import Api
@@ -33,5 +34,7 @@ def create_app(config_name):
     API.init_app(app)
     JWT.init_app(app)
     MA.init_app(app)
+
+    CORS(app, supports_credentials=True)
 
     return app

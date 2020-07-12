@@ -39,19 +39,27 @@ class UserInfoSchema(MA.Schema):
 
 class LikeCountSchema(MA.Schema):
     like_id = fields.Integer()
-    user = fields.Nested(UserInfoSchema)
+    user_id = fields.Integer()
+    #user = fields.Nested(UserInfoSchema)
 
 
 class PostLoadSchema(MA.Schema):
+    post_id = fields.Integer()
     header = fields.Str()
     post_text = fields.Str()
-    post_date = fields.Str()
+    post_date = fields.DateTime('%Y-%m-%d %H:%M')
     users = fields.Nested(UserInfoSchema)
     likes = fields.Nested(LikeCountSchema, many=True)
 
     @post_dump
-    def like_count(self, data, **kwargs):
+    def like_info(self, data, **kwargs):
         data['like_count'] = len(data['likes'])
+
+        user_likes = [like['user_id'] for like in data['likes']]
+        data['liked_by_curr_user'] = False
+        if data['users']['user_id'] in user_likes:
+            data['liked_by_curr_user'] = True
+
         return data
 
 

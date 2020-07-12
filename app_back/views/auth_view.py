@@ -47,7 +47,9 @@ class SignInResource(Resource):
             session[AUTH_TOKEN_KEY] = access_token
             session[AUTH_TIME] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-            return redirect(request.args.get('next') or url_for('indexresource'))
+            response = {'message': 'Successfully signed in.'}
+            return response, status.HTTP_200_OK
+            # return redirect(request.args.get('next') or url_for('indexresource'))
 
         response = {'error': 'Invalid username or password.'}
         return response, status.HTTP_400_BAD_REQUEST

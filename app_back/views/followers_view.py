@@ -17,11 +17,18 @@ class FollowsResource(Resource):
 
         is_following = Followings.query.filter(Followings.follower == user_id).filter(
             Followings.follows == user_to_follow).first()
-        if not is_following:
-            new_following = Followings(follower=user_id, follows=user_to_follow)
 
-            DB.session.add(new_following)
+        if is_following:
+            DB.session.delete(is_following)
             DB.session.commit()
+
+            response = {'message': 'Unfollowing'}
+            return response, status.HTTP_200_OK
+
+        new_following = Followings(follower=user_id, follows=user_to_follow)
+
+        DB.session.add(new_following)
+        DB.session.commit()
 
         response = {'message': 'Following'}
         return response, status.HTTP_200_OK

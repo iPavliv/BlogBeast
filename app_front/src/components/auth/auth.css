@@ -1,0 +1,80 @@
+.SignIn, .SignUp {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 40px;
+    padding: 5%;
+    justify-content: space-between;
+    /*background-color: rgba(155, 155, 155, 0.5);
+    border-left: 20px solid rgba(200, 200, 200, 0.3);*/
+}
+
+input[type=text].user-input,
+input[type=email].user-input,
+input[type=password].user-input {
+    /*border: 2px solid #DDDDDD;*/
+    box-shadow: none;
+
+    height: 40px;
+    width: 300px;
+}
+
+input[type=text]:focus.user-input,
+input[type=email]:focus.user-input,
+input[type=password]:focus.user-input {
+    /*border: 2px solid rgba(245, 145, 83, 1);*/
+}
+
+input[type=text]:invalid.user-input,
+input[type=email]:invalid.user-input,
+input[type=password]:invalid.user-input {
+    border: 2px solid rgba(255, 46, 46, 1);
+}
+
+input[type=button].user-input {
+    border: 1px;
+    border-color: #e8e26b;
+    background-color: #e8e26b;
+    color: #000000;
+    height: 40px;
+    width: 300px;
+    margin: 10px;
+}
+
+input[type=button].user-input:hover {
+    color: #ffffff;
+    background-color: #044711;
+}
+
+input[type=button]#users-btn:disabled {
+    color: #969696;
+    box-shadow: none;
+}
+
+.sign-in-link {
+    color: #000000;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/*.sign-in-link:first-of-type {
+    margin-top: 20px;
+}*/
+
+.sign-in-link:hover {
+    color: #044711;
+}
+
+.align-profile {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 15px;
+}
+
+label.users {
+    align-self: flex-start;
+    font-size: 18px;
+    margin-bottom: 0px;
+    margin-left: -15px;
+}
