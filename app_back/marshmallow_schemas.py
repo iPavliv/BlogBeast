@@ -72,5 +72,6 @@ class PostGeneralSchema(MA.Schema):
 
 
 class LikeSchema(MA.Schema):
-    user = fields.Nested(UserInfoSchema)
-    post = fields.Nested(PostGeneralSchema)
+    like_id = fields.Integer()
+    users = fields.Nested(UserInfoSchema)
+    posts = fields.Nested(PostGeneralSchema)

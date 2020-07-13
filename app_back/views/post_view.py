@@ -33,6 +33,12 @@ class PostResource(Resource):
     def get(self):
         page, per_page = get_pagination()
 
+        if 'post_id' in request.args:
+            post_by_id = Post.query.filter(Post.post_id == request.args['post_id']).first()
+            post = PostLoadSchema().dump(post_by_id)
+
+            return post, status.HTTP_200_OK
+
         post_list = Post.query.filter(Post.author_id == request.args['user_id']).order_by(
             desc(Post.post_date)).paginate(page=page, per_page=per_page)
         posts = PostLoadSchema(many=True).dump(post_list.items)
@@ -66,7 +72,7 @@ class LikePostResource(Resource):
             response = {'message': 'Unlike.'}
             return response, status.HTTP_200_OK
 
-        like = Like(post_id=request.json['post_id'], user_id=user_id, like_date=datetime.now())
+        like = Like(post_id=request.json['post_id'], user_id=user_id, like_date=datetime.date(datetime.today()))
 
         DB.session.add(like)
         DB.session.commit()
