@@ -22,45 +22,47 @@ class FollowsResource(Resource):
             DB.session.delete(is_following)
             DB.session.commit()
 
-            response = {'message': 'Unfollowing'}
-            return response, status.HTTP_200_OK
+            return False, status.HTTP_200_OK
 
         new_following = Followings(follower=user_id, follows=user_to_follow)
 
         DB.session.add(new_following)
         DB.session.commit()
 
-        response = {'message': 'Following'}
+        return True, status.HTTP_200_OK
+
+    @login_required
+    def get(self):
+        user_id = get_current_user_id()
+        page, per_page = get_pagination()
+
+        if request.args['users'] == 'i_follow':
+            friends_list = Followings.query.filter(Followings.follower == user_id).paginate(
+                page=page, per_page=per_page)
+        else:
+            friends_list = Followings.query.filter(Followings.follows == user_id).paginate(page=page, per_page=per_page)
+
+        friends = []
+        for friend in friends_list.items:
+            user = User.query.filter(User.user_id == friend.follows).first()
+            friends.append({'username': user.username, 'user_id': user.user_id})
+
+        return friends, status.HTTP_200_OK
+
+
+class CheckFollowingResource(Resource):
+    @login_required
+    def get(self):
+        user_id = get_current_user_id()
+        user_to_check = request.args['user_id']
+
+        is_following = Followings.query.filter(Followings.follower == user_id).filter(
+            Followings.follows == user_to_check).count()
+
+        response = bool(is_following)
+
         return response, status.HTTP_200_OK
 
-    @login_required
-    def get(self):
-        user_id = get_current_user_id()
-        page, per_page = get_pagination()
 
-        friends_list = Followings.query.filter(Followings.follower == user_id).paginate(page=page, per_page=per_page)
-        friends = []
-        for friend in friends_list:
-            user = User.query.filter(User.user_id == friend.follows).first()
-            friends.append({'username': user.username, 'user_id': user.user_id})
-
-        return friends, status.HTTP_200_OK
-
-
-class FollowerResource(Resource):
-    @login_required
-    def get(self):
-        user_id = get_current_user_id()
-        page, per_page = get_pagination()
-
-        friends_list = Followings.query.filter(Followings.follows == user_id).paginate(page=page, per_page=per_page)
-        friends = []
-        for friend in friends_list:
-            user = User.query.filter(User.user_id == friend.follows).first()
-            friends.append({'username': user.username, 'user_id': user.user_id})
-
-        return friends, status.HTTP_200_OK
-
-
-API.add_resource(FollowsResource, '/i_follow')
-API.add_resource(FollowerResource, '/followers')
+API.add_resource(FollowsResource, '/followers')
+API.add_resource(CheckFollowingResource, '/check_follower')

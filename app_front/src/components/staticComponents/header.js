@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 import cookie from 'react-cookies';
 import { Link } from "react-router-dom";
-
-import { MAIN, BACK_APP } from '../../constants';
 
 import './header.css';
 
@@ -15,17 +12,9 @@ class Header extends Component {
         element3: undefined
     };
 
-    signOut = () => {
-        const url = `${BACK_APP}/sign_out`;
-        axios.post(url,  { withCredentials:true }
-        ).then( () => {
-            cookie.remove('session', { path: '/' });
-            window.location = `${MAIN}/auth/sign_in`;
-        });
-    }
-
-    componentWillMount() {
-        if (cookie.load("session")){
+    componentDidMount() {
+        const authorized = cookie.load('authorized');
+        if (authorized) {
             this.setState({
                 element1: undefined,
                 element2: undefined,

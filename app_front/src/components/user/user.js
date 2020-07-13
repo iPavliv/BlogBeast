@@ -6,16 +6,21 @@ import Follow from './follow';
 
 
 class UserPage extends Component {
-    checkFollowing = () => {
-        return false;
+
+    state = {
+        'userId': '',
+    }
+
+    componentWillMount = () => {
+        const userId = queryString.parse(this.props.location.search).user_id;
+        this.setState({userId: userId});
     }
 
     render() {
-        const values = queryString.parse(this.props.location.search);
         return (
             <div className="align-profile">
-                <Follow is_following={this.checkFollowing} />
-                <PostList user_id={values.user_id} />
+                <Follow userId={this.state.userId}/>
+                <PostList user_id={this.state.userId} />
             </div>
         );
     }

@@ -32,7 +32,7 @@ class PostCreate extends Component {
 
         const url = `${BACK_APP}/posts`;
 
-        axios.post(url, post_data, { withCredentials:true, crossDomain: true }
+        axios.post(url, post_data, { withCredentials: true, crossDomain: true }
         ).then( () => { window.location = `${MAIN}` }
         );
     }

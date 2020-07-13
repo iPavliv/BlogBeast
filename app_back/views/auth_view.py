@@ -56,11 +56,12 @@ class SignInResource(Resource):
 
 
 class SignOutResource(Resource):
-    @login_required
+    # @login_required
     def post(self):
         session.clear()
 
-        return redirect(url_for('signinresource'))
+        response = {'message': 'Successfully signed out.'}
+        return response, status.HTTP_200_OK
 
 
 API.add_resource(SignUpResource, '/sign_up')

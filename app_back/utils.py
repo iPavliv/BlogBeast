@@ -28,7 +28,8 @@ def login_required(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
         if not session.get(AUTH_TOKEN_KEY):
-            return redirect(url_for('signinresource', next=request.url))
+            return abort(status.HTTP_401_UNAUTHORIZED)
+            # return redirect(url_for('signinresource', next=request.url))
         return f(*args, **kwargs)
     return wrapper
 

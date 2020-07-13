@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
+import cookie from 'react-cookies';
 import { Link } from "react-router-dom";
 
 import { MAIN, BACK_APP } from '../../constants';
@@ -35,8 +36,8 @@ class SignIn extends Component {
 
         axios.post(url, user, { withCredentials:true, crossDomain: true }
         ).then( resp => {
-        alert(resp.data.message);
-        window.location = `${MAIN}` }
+            cookie.save('authorized', true, { path: '/' });
+            window.location = `${MAIN}`; }
         ).catch( error => { alert(error.response.data.error) });
     }
 
