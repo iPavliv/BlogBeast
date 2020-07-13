@@ -1,4 +1,16 @@
 ul {
     list-style-type: none;
+
+}
+
+.follower-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     padding: 10px;
+}
+
+.follow {
+    transform: scale(0.85);
 }

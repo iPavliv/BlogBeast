@@ -1,7 +1,7 @@
 import logging
 from datetime import datetime
 
-from flask import session, url_for, redirect, request, Blueprint
+from flask import session, request, Blueprint
 from flask_api import status
 from flask_jwt_extended import create_access_token
 from flask_restful import Resource
@@ -11,7 +11,7 @@ from .. import DB, API
 from ..constants import AUTH_TOKEN_KEY, AUTH_TIME
 from ..models import User
 from ..marshmallow_schemas import UserSignUpSchema, UserSignInSchema
-from ..utils import load_data_with_schema, login_required
+from ..utils import load_data_with_schema, send_reset_email
 
 AUTH_BLUEPRINT = Blueprint('auth', __name__)
 LOGGER = logging.getLogger('root')
@@ -49,14 +49,12 @@ class SignInResource(Resource):
 
             response = {'message': 'Successfully signed in.'}
             return response, status.HTTP_200_OK
-            # return redirect(request.args.get('next') or url_for('indexresource'))
 
         response = {'error': 'Invalid username or password.'}
         return response, status.HTTP_400_BAD_REQUEST
 
 
 class SignOutResource(Resource):
-    # @login_required
     def post(self):
         session.clear()
 
@@ -64,6 +62,39 @@ class SignOutResource(Resource):
         return response, status.HTTP_200_OK
 
 
+class ResetPasswordResource(Resource):
+    def post(self):
+        user_email = request.json['email']
+        user = User.query.filter_by(email=user_email).first()
+        if not user:
+            response_obj = {'error': 'No user with this email.'}
+            return response_obj, status.HTTP_400_BAD_REQUEST
+
+        send_reset_email(user)
+
+        response_obj = {'message': 'Email with reset link has been sent.'}
+        return response_obj, status.HTTP_200_OK
+
+    def put(self):
+        token = request.args.get('token')
+        user = User.verify_reset_token(token)
+        if not user:
+            response_obj = {
+                'error': 'Invalid or expired token.'
+            }
+            return response_obj, status.HTTP_400_BAD_REQUEST
+
+        password = request.json.get('password')
+        user.password = password
+
+        DB.session.add(user)
+        DB.session.commit()
+
+        response_obj = {'message': 'Password successfully updated.'}
+        return response_obj, status.HTTP_200_OK
+
+
 API.add_resource(SignUpResource, '/sign_up')
 API.add_resource(SignInResource, '/sign_in')
 API.add_resource(SignOutResource, '/sign_out')
+API.add_resource(ResetPasswordResource, '/reset_password')

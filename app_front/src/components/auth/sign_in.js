@@ -50,7 +50,7 @@ class SignIn extends Component {
                         className="user-input"
                         type="email"
                         onChange={this.handleChange}
-                    />
+                    /><br />
                     <label className="users" htmlFor="password">Password:</label>
                     <input id="password"
                         className="user-input"

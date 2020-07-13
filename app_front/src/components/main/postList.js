@@ -44,7 +44,7 @@ class PostList extends Component {
 
     render() {
         return (
-            <div className='form-list'>
+            <div className='post-list'>
                 <div>
                     {this.state.posts.map(post => {
                         const username = post.users.username;

@@ -99,21 +99,21 @@ class SignUp extends Component {
                         type="text"
                         value={this.state.username}
                         onChange={this.handleChange}
-                    />
+                    /><br />
                     <label className="users" htmlFor="email">Email:</label>
                     <input id="email"
                         className="user-input"
                         type="email"
                         value={this.state.email}
                         onChange={this.handleChange}
-                    />
+                    /><br />
                     <label className="users" htmlFor="password">Password:</label>
                     <input id="password"
                         className="user-input"
                         type="password"
                         value={this.state.password}
                         onChange={this.handleChange}
-                    />
+                    /><br />
                     <label className="users" htmlFor="password2">Repeat password:</label>
                     <input id="password2"
                         className="user-input"

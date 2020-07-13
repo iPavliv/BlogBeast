@@ -1,0 +1,14 @@
+.left-panel {
+    display: flex;
+}
+
+.create-post-item {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.post-list: {
+    display: flex;
+    align-items: center;
+}

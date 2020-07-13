@@ -18,7 +18,7 @@ class FollowersList extends Component {
     }
 
     componentWillMount = () => {
-        let getParams = { 'users': 'follow_me' }
+        let getParams = { 'users': 'follower' }
         const url = `${BACK_APP}/followers`;
 
         axios.get(url, { params:getParams, crossDomain:true, withCredentials:true },
@@ -27,7 +27,7 @@ class FollowersList extends Component {
             this.setState({followers: followers});
         });
 
-        getParams = { 'users': 'i_follow' }
+        getParams = { 'users': 'follows' }
 
         axios.get(url, { params:getParams, crossDomain:true, withCredentials:true },
         ).then( resp => {
@@ -38,13 +38,13 @@ class FollowersList extends Component {
 
     render() {
         const followersList = this.state.followers.map( user =>
-            <li key={user.user_id}>
+            <li className="follower-item" key={user.user_id}>
                 <Link className='user-link' to={`/user?user_id=${user.user_id}`}>{user.username}</Link>
             </li>
         );
         const followsList = this.state.follows.map( user =>
-            <li key={user.user_id}>
-                <Link className='user-link' to={`/user?user_id=${user.user_id}`}>{user.username}</Link>
+            <li className="follower-item" key={user.user_id}>
+                <Link className='user-link' to={`/user?user_id=${user.user_id}`}>{user.username}</Link>&nbsp;
                 <Follow userId={user.user_id}/>
             </li>
         );

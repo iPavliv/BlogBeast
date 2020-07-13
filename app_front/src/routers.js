@@ -6,6 +6,8 @@ import Header from './components/staticComponents/header';
 import SignIn from './components/auth/sign_in';
 import SignUp from './components/auth/sign_up';
 import SignOut from './components/auth/sign_out';
+import ResetPassword from './components/auth/resetPasswd';
+import SetNewPassword from './components/auth/setNewPasswd';
 import Main from './components/main/main';
 import UserPage from './components/user/user';
 import Activity from './components/currUser/activity';
@@ -29,6 +31,8 @@ const Routers = () => {
                     <Route path='/my_page' component={Statistics}/>
                     <Route path='/followers_list' component={FollowersList}/>
                     <Route path='/news' component={Statistics}/>
+                    <Route path='/reset_password' component={ResetPassword}/>
+                    <Route path='/set_new_password' component={SetNewPassword}/>
                 </Switch>
             </div>
         </BrowserRouter>

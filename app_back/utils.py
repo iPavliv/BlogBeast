@@ -5,10 +5,12 @@ from functools import wraps
 from flask import session, request, url_for, redirect
 from flask_api import status
 from flask_jwt_extended import decode_token
+from flask_mail import Message
 from flask_restful import abort
 from jwt import ExpiredSignatureError
 from marshmallow import ValidationError
 
+from . import MAIL
 from .constants import AUTH_TOKEN_KEY, USER_IDENTITY, PAGE, PER_PAGE, DEFAULT_PAGE, DEFAULT_PER_PAGE
 
 LOGGER = logging.getLogger('root')
@@ -29,7 +31,6 @@ def login_required(f):
     def wrapper(*args, **kwargs):
         if not session.get(AUTH_TOKEN_KEY):
             return abort(status.HTTP_401_UNAUTHORIZED)
-            # return redirect(url_for('signinresource', next=request.url))
         return f(*args, **kwargs)
     return wrapper
 
@@ -55,3 +56,18 @@ def get_pagination():
     per_page = request.args.get(PER_PAGE) or DEFAULT_PER_PAGE
 
     return page, per_page
+
+
+def send_reset_email(user):
+    """Send email with reset password token."""
+    token = user.get_reset_token()
+    message = Message('Password Reset Request',
+                      sender='no-reply@BlogBeast',
+                      recipients=[user.email])
+    url_to = f'http://127.0.0.1:3000/set_new_password?token={token}'
+    message.body = f'''
+        To reset your password visit the following link:
+            {url_to}
+        If you did not make this request just ignore this email and no changes will be done.
+    '''
+    MAIL.send(message)

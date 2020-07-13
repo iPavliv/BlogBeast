@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import { MAIN, BACK_APP } from '../../constants';
 
+import './main.css';
+
 
 class PostCreate extends Component {
     state = {
@@ -33,13 +35,13 @@ class PostCreate extends Component {
         const url = `${BACK_APP}/posts`;
 
         axios.post(url, post_data, { withCredentials: true, crossDomain: true }
-        ).then( () => { window.location = `${MAIN}` }
+        ).then( () => { window.location = `${MAIN}/my_page` }
         );
     }
 
     render() {
         return (
-            <div className='post-item'>
+            <div className='create-post-item'>
                 <input id="header"
                        type="text"
                        defaultValue={this.state.defaultHeader}

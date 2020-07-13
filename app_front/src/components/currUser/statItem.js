@@ -6,7 +6,6 @@ class StatItem extends Component {
     render() {
         return (
             <div>
-                <h4>{this.props.date}</h4>
                 <h6>
                     <q>{this.props.postHeader}</q>&nbsp;liked by&nbsp;
                     <Link className='post-link' to={`/user?user_id=${this.props.userId}`}>

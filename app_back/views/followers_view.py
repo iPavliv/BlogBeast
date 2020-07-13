@@ -35,17 +35,23 @@ class FollowsResource(Resource):
     def get(self):
         user_id = get_current_user_id()
         page, per_page = get_pagination()
+        who_follows = request.args['users']
 
-        if request.args['users'] == 'i_follow':
+        friends = []
+
+        if who_follows == 'follows':
             friends_list = Followings.query.filter(Followings.follower == user_id).paginate(
                 page=page, per_page=per_page)
+            for friend in friends_list.items:
+                user = User.query.filter(User.user_id == friend.follows).first()
+                friends.append({'username': user.username, 'user_id': user.user_id})
+
         else:
             friends_list = Followings.query.filter(Followings.follows == user_id).paginate(page=page, per_page=per_page)
 
-        friends = []
-        for friend in friends_list.items:
-            user = User.query.filter(User.user_id == friend.follows).first()
-            friends.append({'username': user.username, 'user_id': user.user_id})
+            for friend in friends_list.items:
+                user = User.query.filter(User.user_id == friend.follower).first()
+                friends.append({'username': user.username, 'user_id': user.user_id})
 
         return friends, status.HTTP_200_OK
 

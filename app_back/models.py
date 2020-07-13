@@ -1,6 +1,8 @@
+from flask import current_app
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from werkzeug.security import generate_password_hash, check_password_hash
+from itsdangerous import SignatureExpired, TimedJSONWebSignatureSerializer as Serializer, BadSignature
 
 from app_back import DB
 
@@ -25,6 +27,19 @@ class User(DB.Model):
 
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def get_reset_token(self, expires_sec=7200):
+        serial = Serializer(current_app.config.get('SECRET_KEY'), expires_sec)
+        return serial.dumps({'user_id': self.user_id}).decode('utf-8')
+
+    @staticmethod
+    def verify_reset_token(token):
+        serial = Serializer(current_app.config.get('SECRET_KEY'))
+        try:
+            user_id = serial.loads(token)['user_id']
+        except (BadSignature, SignatureExpired):
+            return None
+        return User.query.get(user_id)
 
 
 class Followings(DB.Model):
