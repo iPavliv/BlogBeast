@@ -2,6 +2,7 @@ from marshmallow import fields, validates, ValidationError, post_dump
 from marshmallow.validate import Length, Regexp
 
 from . import MA
+from .utils import get_current_user_id
 
 
 class UserSignUpSchema(MA.Schema):
@@ -56,8 +57,10 @@ class PostLoadSchema(MA.Schema):
         data['like_count'] = len(data['likes'])
 
         user_likes = [like['user_id'] for like in data['likes']]
+        curr_user = get_current_user_id()
+
         data['liked_by_curr_user'] = False
-        if data['users']['user_id'] in user_likes:
+        if curr_user in user_likes:
             data['liked_by_curr_user'] = True
 
         return data

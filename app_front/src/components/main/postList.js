@@ -49,7 +49,8 @@ class PostList extends Component {
                     {this.state.posts.map(post => {
                         const username = post.users.username;
                         const user_id = post.users.user_id;
-                        return (<PostItem post_id={post.post_id}
+                        return (<PostItem key={post.post_id}
+                                          post_id={post.post_id}
                                           header={post.header}
                                           post_date={post.post_date}
                                           post_text={post.post_text}

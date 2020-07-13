@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import axios from 'axios';
 import { Link } from "react-router-dom";
-
-import { MAIN, BACK_APP } from '../../constants';
 
 import Like from './like';
 
@@ -11,7 +8,6 @@ import './post.css';
 
 class PostItem extends Component {
     render() {
-        console.log(this.props);
         return (
             <div className='post-item'>
                 <h4>{this.props.header}</h4>

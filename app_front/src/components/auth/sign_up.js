@@ -17,8 +17,8 @@ class SignUp extends Component {
     };
 
     validateForm() {
-        return this.state['username'].length > 0 && this.state['email'].length > 0
-            && this.state['password'].length > 0 && this.state['password2'].length > 0;
+        return this.state['username'].length && this.state['email'].length
+            && this.state['password'].length && this.state['password2'].length;
     }
 
     handleChange = event => {
@@ -55,7 +55,7 @@ class SignUp extends Component {
             passwordValid.setCustomValidity("");
         }
 
-        if (this.state.password != this.state.password2) {
+        if (this.state.password !== this.state.password2) {
             password2Valid = false;
             password2Valid.setCustomValidity("Password does not match.");
         } else {

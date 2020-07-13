@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import queryString from 'query-string';
 
-import PostList from '../main/postList';
+import { BACK_APP } from '../../constants';
 
 
 class Follow extends Component {
@@ -21,21 +21,15 @@ class Follow extends Component {
 
         axios.post(url, userId, { withCredentials:true, crossDomain: true }
         ).then( respPost => {
-            axios.get(url, { params:userId, crossDomain:true, withCredentials:true }
-            ).then( respGet => {
-                this.setState({is_following: !this.state.is_following});
-            });
+            this.setState({is_following: !this.state.is_following});
         });
     }
 
     render() {
-        const imgSrc = this.state.is_following ? "./liked.png" : "./like.png";
         const label = this.state.is_following ? "Unfollow" : "Follow";
-
         return (
             <div className="align-profile">
-                <label htmlFor="follow-btn" className='follow'>{label}</label>
-                <img id="follow-btn" alt="To follow" className="follow" src="./like.png" onClick={this.followUser} />
+                <button htmlFor="follow-btn" className='follow' onClick={this.followUser}>{label}</button>
             </div>
         );
     }

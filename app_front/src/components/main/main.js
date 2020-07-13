@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import axios from 'axios';
 
 import PostList from './postList';
+import PostCreate from './createPost';
 
 
 class Main extends Component {
@@ -9,6 +9,7 @@ class Main extends Component {
         return (
             <div className="Main">
                 <div className="align-profile">
+                    <PostCreate />
                     <PostList />
                 </div>
             </div>

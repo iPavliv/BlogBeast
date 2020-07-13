@@ -15,7 +15,7 @@ class SignIn extends Component {
     };
 
     validateForm() {
-        return this.state['email'].length > 0 && this.state['password'].length > 0;
+        return this.state.email.length && this.state.password.length;
     }
 
     handleChange = event => {
@@ -48,13 +48,11 @@ class SignIn extends Component {
                     <input id="email"
                         className="user-input"
                         type="email"
-                        value={this.state['email']}
                         onChange={this.handleChange}
                     />
                     <label className="users" htmlFor="password">Password:</label>
                     <input id="password"
                         className="user-input"
-                        value={this.state['password']}
                         onChange={this.handleChange}
                         type="password"
                     />
