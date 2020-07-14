@@ -15,7 +15,7 @@ class StatList extends Component {
                                       username={stat.users.username}
                                       userId={stat.users.user_id}
                     />);
-                })}
+                })}<br />
             </div>
         );
     }

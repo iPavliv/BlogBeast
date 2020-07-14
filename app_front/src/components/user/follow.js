@@ -38,7 +38,7 @@ class Follow extends Component {
         const label = this.state.isFollowing ? "Unfollow" : "Follow";
         return (
             <div>
-                <button htmlFor="follow-btn" className='follow'onClick={this.followUser}>{label}</button>
+                <button htmlFor="follow-btn" className='follow' onClick={this.followUser}>{label}</button>
             </div>
         );
     }

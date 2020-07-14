@@ -30,8 +30,8 @@ class StatisticsResource(Resource):
         if any(k not in request.args for k in ('date_from', 'date_to')):
             date_to = date_from = datetime.today()
         else:
-            date_from = datetime.strptime(request.args['date_from'], '%Y-%m-%d')
-            date_to = datetime.strptime(request.args['date_to'], '%Y-%m-%d')
+            date_from = datetime.strptime(request.args['date_from'][:10], '%Y-%m-%d')
+            date_to = datetime.strptime(request.args['date_to'][:10], '%Y-%m-%d')
 
         posts = Post.query.filter(Post.author_id == user_id).all()
         posts_ids_data = PostGeneralSchema(many=True).dump(posts)

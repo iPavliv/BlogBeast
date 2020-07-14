@@ -32,6 +32,7 @@ class PostResource(Resource):
     @login_required
     def get(self):
         page, per_page = get_pagination()
+        user_id = get_current_user_id() if request.args['user_id'] == 'current' else request.args['user_id']
 
         if 'post_id' in request.args:
             post_by_id = Post.query.filter(Post.post_id == request.args['post_id']).first()
@@ -39,7 +40,7 @@ class PostResource(Resource):
 
             return post, status.HTTP_200_OK
 
-        post_list = Post.query.filter(Post.author_id == request.args['user_id']).order_by(
+        post_list = Post.query.filter(Post.author_id == user_id).order_by(
             desc(Post.post_date)).paginate(page=page, per_page=per_page)
         posts = PostLoadSchema(many=True).dump(post_list.items)
 
@@ -93,13 +94,7 @@ class MyPageResource(Resource):
         user_id = get_current_user_id()
         page, per_page = get_pagination()
 
-        if 'post_id' in request.args:
-            post_by_id = Post.query.filter(Post.post_id == request.args['post_id']).first()
-            post = PostLoadSchema().dump(post_by_id)
-
-            return post, status.HTTP_200_OK
-
-        post_list = Post.query.filter(Post.author_id == request.args['user_id']).order_by(
+        post_list = Post.query.filter(Post.author_id == user_id).order_by(
             desc(Post.post_date)).paginate(page=page, per_page=per_page)
         posts = PostLoadSchema(many=True).dump(post_list.items)
 

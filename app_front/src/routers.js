@@ -12,6 +12,7 @@ import Main from './components/main/main';
 import UserPage from './components/user/user';
 import Activity from './components/currUser/activity';
 import Statistics from './components/currUser/statistics';
+import MyPage from './components/currUser/myPage';
 import FollowersList from './components/followers/followers';
 
 
@@ -28,7 +29,7 @@ const Routers = () => {
                     <Route path='/user' component={UserPage}/>
                     <Route path='/activity' component={Activity}/>
                     <Route path='/statistics' component={Statistics}/>
-                    <Route path='/my_page' component={Statistics}/>
+                    <Route path='/my_page' component={MyPage}/>
                     <Route path='/followers_list' component={FollowersList}/>
                     <Route path='/news' component={Statistics}/>
                     <Route path='/reset_password' component={ResetPassword}/>

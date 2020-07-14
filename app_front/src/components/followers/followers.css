@@ -12,5 +12,14 @@ ul {
 }
 
 .follow {
-    transform: scale(0.85);
+    border: 1px solid #fff;
+    border-radius: 45%;
+    font-size: 14px;
+    background-color: #008800;
+    color: #fff;
+    padding: 3px;
+}
+
+.follow:hover {
+    color: #f5f542;
 }

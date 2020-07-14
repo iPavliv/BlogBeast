@@ -122,15 +122,17 @@ class SignUp extends Component {
                         type="password"
                     />
                 </div>
-                <input
-                    id="users-btn"
-                    className="user-input"
-                    disabled={!this.validateForm()}
-                    type="button"
-                    onClick={this.handleSubmit}
-                    value='Sign Up'
-                />
-                <Link className="sign-in-link" to="/auth/sign_in">Already signed up? Click here to sign in.</Link>
+                <div className="align-profile">
+                    <input
+                        id="users-btn"
+                        className="user-input"
+                        disabled={!this.validateForm()}
+                        type="button"
+                        onClick={this.handleSubmit}
+                        value='Sign Up'
+                    />
+                    <Link className="sign-in-link" to="/auth/sign_in">Already signed up? Click here to sign in.</Link>
+                </div>
             </div>
         );
     }

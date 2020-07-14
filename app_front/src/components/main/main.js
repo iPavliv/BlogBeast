@@ -22,7 +22,7 @@ class Main extends Component {
         return (
             <div className="Main">
                 <div className="align-profile">
-                    <PostCreate />
+                    <PostCreate /><br />
                     <PostList />
                 </div>
             </div>
