@@ -53,7 +53,8 @@ class FollowsResource(Resource):
                 user = User.query.filter(User.user_id == friend.follower).first()
                 friends.append({'username': user.username, 'user_id': user.user_id})
 
-        return friends, status.HTTP_200_OK
+        response = {'friends': friends, 'pages': friends_list.pages}
+        return response, status.HTTP_200_OK
 
 
 class CheckFollowingResource(Resource):

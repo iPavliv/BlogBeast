@@ -8,7 +8,7 @@ from app_back import create_app, DB
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
 
-from app_back.models import User, Followings, Like
+from app_back.models import User, Followings, Like, Post
 from app_back.views.curr_user_data_view import CURR_USER_DATA_BLUEPRINT
 from app_back.views.auth_view import AUTH_BLUEPRINT
 from app_back.views.followers_view import FOLLOWER_BLUEPRINT
@@ -32,7 +32,7 @@ def before_request():
 
 
 def make_shell_context():
-    return dict(app=APP, db=DB, User=User, Followings=Followings, Like=Like)
+    return dict(app=APP, db=DB, User=User, Post=Post, Followings=Followings, Like=Like)
 
 
 manager.add_command('shell', Shell(make_context=make_shell_context))

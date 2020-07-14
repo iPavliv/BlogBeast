@@ -52,8 +52,8 @@ def date_range(start_date, end_date):
 
 
 def get_pagination():
-    page = request.args.get(PAGE) or DEFAULT_PAGE
-    per_page = request.args.get(PER_PAGE) or DEFAULT_PER_PAGE
+    page = int(request.args.get(PAGE) or DEFAULT_PAGE)
+    per_page = int(request.args.get(PER_PAGE) or DEFAULT_PER_PAGE)
 
     return page, per_page
 

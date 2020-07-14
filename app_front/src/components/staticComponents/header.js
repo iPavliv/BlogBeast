@@ -10,6 +10,7 @@ class Header extends Component {
         element3: undefined,
         element4: [],
         element5: undefined,
+        element6: undefined,
     };
 
     componentDidMount() {
@@ -26,7 +27,8 @@ class Header extends Component {
                     <NavDropdown.Item href="/activity">My activity</NavDropdown.Item>
                     <NavDropdown.Item href="/statistics">Statistics</NavDropdown.Item>
                 </NavDropdown>,
-                element5: <Nav.Link href="/my_page">My page</Nav.Link>,
+                element5: <Nav.Link href="/">Main</Nav.Link>,
+                element6: <Nav.Link href="/my_page">My page</Nav.Link>,
             });
         } else {
             this.setState({
@@ -35,6 +37,7 @@ class Header extends Component {
                 element3: undefined,
                 element4: <Nav.Link href="#">BlogBeast</Nav.Link>,
                 element5: undefined,
+                element6: undefined,
             });
         }
     }
@@ -46,6 +49,7 @@ class Header extends Component {
                     <Nav className="mr-auto">
                         {this.state.element4}
                         {this.state.element5}
+                        {this.state.element6}
                     </Nav>
                     <Nav>
                         {this.state.element1}

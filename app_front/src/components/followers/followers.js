@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import axios from 'axios';
+import ReactPaginate from 'react-paginate';
 
 import { BACK_APP } from '../../constants';
 
@@ -15,25 +16,52 @@ class FollowersList extends Component {
     state = {
         'followers': [],
         'follows': [],
+        'followersPageCount': 0,
+        'followsPageCount': 0,
+        'page': 1,
+        'perPage': 20,
     }
 
-    componentWillMount = () => {
-        let getParams = { 'users': 'follower' }
+    handlePageClick = (e) => {
+        const page = e.selected + 1;
+
+        this.setState({ page: page }, () => {
+            this.receivedData()
+        });
+
+    };
+
+    receivedData = () => {
+        let getParams = {
+            'users': 'follower',
+            'page': this.state.page,
+            'per_page': this.state.perPage,
+        }
         const url = `${BACK_APP}/followers`;
 
         axios.get(url, { params:getParams, crossDomain:true, withCredentials:true },
         ).then( resp => {
-            const followers = resp.data;
-            this.setState({followers: followers});
+            const followers = resp.data.friends;
+            const pageCount = resp.data.pages
+            this.setState({followers: followers, followersPageCount: pageCount});
         });
 
-        getParams = { 'users': 'follows' }
+        getParams = {
+            'users': 'follows',
+            'page': this.state.page,
+            'per_page': this.state.perPage,
+        }
 
         axios.get(url, { params:getParams, crossDomain:true, withCredentials:true },
         ).then( resp => {
-            const follows = resp.data;
-            this.setState({follows: follows});
+            const follows = resp.data.friends;
+            const pageCount = resp.data.pages
+            this.setState({follows: follows, followersPageCount: pageCount});
         });
+    }
+
+    componentDidMount() {
+        this.receivedData()
     }
 
     render() {
@@ -54,9 +82,35 @@ class FollowersList extends Component {
                 <Tabs defaultActiveKey="followers" transition={false}>
                     <Tab eventKey="followers" title="Followers">
                         <ul>{followersList}</ul>
+                        <ReactPaginate
+                            previousLabel={"Prev"}
+                            nextLabel={"Next"}
+                            breakLabel={"..."}
+                            breakClassName={"break-me"}
+                            pageCount={this.state.followersPageCount}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={this.handlePageClick}
+                            containerClassName={"pagination"}
+                            subContainerClassName={"pages pagination"}
+                            activeClassName={"active"}
+                        />
                     </Tab>
                     <Tab eventKey="follows" title="I follow">
                         <ul>{followsList}</ul>
+                        <ReactPaginate
+                            previousLabel={"Prev"}
+                            nextLabel={"Next"}
+                            breakLabel={"..."}
+                            breakClassName={"break-me"}
+                            pageCount={this.state.followsPageCount}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={this.handlePageClick}
+                            containerClassName={"pagination"}
+                            subContainerClassName={"pages pagination"}
+                            activeClassName={"active"}
+                        />
                     </Tab>
                 </Tabs>
             </div>

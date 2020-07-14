@@ -49,7 +49,7 @@ class ResetPassword extends Component {
             axios.post(url, emailData, { withCredentials:true, crossDomain: true }
             ).then( response => {
                 alert(response.data.message);
-                this.props.history.push("/set_new_password");
+                this.props.history.push("/auth/sign_in");
             }).catch( error => {
                 alert(error.response.data.error);
             });

@@ -44,7 +44,8 @@ class PostResource(Resource):
             desc(Post.post_date)).paginate(page=page, per_page=per_page)
         posts = PostLoadSchema(many=True).dump(post_list.items)
 
-        return posts, status.HTTP_200_OK
+        response = {'posts': posts, 'pages': post_list.pages}
+        return response, status.HTTP_200_OK
 
     @login_required
     def put(self):

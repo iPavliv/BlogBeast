@@ -11,7 +11,7 @@ class SetNewPassword extends Component {
     };
 
     validateForm() {
-        return this.state['password'].length && this.state['passwordTwo'].length;
+        return this.state['password'].length && this.state['password2'].length;
     }
 
     validate = () => {
