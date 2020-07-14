@@ -16,6 +16,7 @@ class User(DB.Model):
 
     posts = relationship('Post', backref='users', lazy='dynamic')
     likes = relationship('Like', backref='users', lazy='dynamic')
+    comments = relationship('Comment', backref='users', lazy='dynamic')
 
     @property
     def password(self):
@@ -60,6 +61,7 @@ class Post(DB.Model):
     post_date = DB.Column(DB.DateTime)
 
     likes = relationship('Like', backref='posts', cascade="all,delete", lazy='dynamic')
+    comments = relationship('Comment', backref='posts', cascade="all,delete", lazy='dynamic')
 
 
 class Like(DB.Model):
@@ -68,3 +70,12 @@ class Like(DB.Model):
     post_id = DB.Column(DB.Integer, ForeignKey('posts.post_id'))
     user_id = DB.Column(DB.Integer, ForeignKey('users.user_id'))
     like_date = DB.Column(DB.Date)
+
+
+class Comment(DB.Model):
+    __tablename__ = 'comments'
+    comment_id = DB.Column(DB.Integer, primary_key=True)
+    post_id = DB.Column(DB.Integer, ForeignKey('posts.post_id'))
+    user_id = DB.Column(DB.Integer, ForeignKey('users.user_id'))
+    comment_text = DB.Column(DB.Text)
+    comment_date = DB.Column(DB.DateTime)

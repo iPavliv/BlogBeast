@@ -6,8 +6,8 @@ from flask_restful import Resource
 from sqlalchemy import desc
 
 from .. import API, DB
-from ..models import Post, Like
-from ..marshmallow_schemas import CreatePostSchema, PostLoadSchema
+from ..models import Post, Like, Comment
+from ..marshmallow_schemas import CreatePostSchema, PostLoadSchema, CommentSchema
 from ..utils import login_required, get_current_user_id, load_data_with_schema, get_pagination
 
 POST_BLUEPRINT = Blueprint('post', __name__)
@@ -92,9 +92,39 @@ class LikePostResource(Resource):
     @login_required
     def get(self):
         like = Like.query.filter(Like.post_id == request.args['post_id']).count()
-
         return like, status.HTTP_200_OK
+
+
+class CommentResource(Resource):
+    @login_required
+    def post(self):
+        user_id = get_current_user_id()
+
+        comment = Comment(
+            post_id=request.json['post_id'],
+            user_id=user_id,
+            comment_text=request.json['comment_text'],
+            comment_date=datetime.now()
+        )
+
+        DB.session.add(comment)
+        DB.session.commit()
+
+        response = {'message': 'Comment created.'}
+        return response, status.HTTP_200_OK
+
+    @login_required
+    def get(self):
+        page, per_page = get_pagination()
+
+        comments_list = Comment.query.filter(Comment.post_id == request.args['post_id']).paginate(
+            page=page, per_page=per_page)
+        comments = CommentSchema(many=True).dump(comments_list.items)
+
+        response = {'comments': comments, 'pages': comments_list.pages}
+        return response, status.HTTP_200_OK
 
 
 API.add_resource(PostResource, '/posts')
 API.add_resource(LikePostResource, '/like')
+API.add_resource(CommentResource, '/comment')

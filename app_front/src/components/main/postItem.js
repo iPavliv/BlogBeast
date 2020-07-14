@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 import Like from './like';
+import Comments from './comments/comments';
 
 import './post.css';
 
@@ -15,6 +16,9 @@ class PostItem extends Component {
                 <Link className='post-link' to={`/user?user_id=${this.props.authorId}`}>{this.props.author}</Link></h6>
                 <p className='post-text'>{this.props.postText}</p>
                 <Like postId={this.props.postId} likeCount={this.props.likeCount} isLiked={this.props.isLiked}/>
+                <Comments key={this.props.postId}
+                    postId={this.props.postId}
+                />
             </div>
         );
     }

@@ -39,17 +39,16 @@ class PostList extends Component {
             getParams.user_id = this.props.user_id;
         }
 
-        axios.get(url, { params:getParams, crossDomain:true, withCredentials:true },
+        axios.get(url, { params: getParams, crossDomain: true, withCredentials: true },
         ).then( resp => {
             const posts = resp.data.posts;
             const pageCount = resp.data.pages;
             this.setState({posts: posts, pageCount: pageCount});
-            console.log(this.state.posts);}
-        );
+        });
     }
 
     componentDidMount() {
-        this.receivedData()
+        this.receivedData();
     }
 
     render() {

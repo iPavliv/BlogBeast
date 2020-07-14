@@ -75,3 +75,11 @@ class LikeSchema(MA.Schema):
     like_id = fields.Integer()
     users = fields.Nested(UserInfoSchema)
     posts = fields.Nested(PostGeneralSchema)
+
+
+class CommentSchema(MA.Schema):
+    comment_id = fields.Integer()
+    comment_text = fields.Str()
+    comment_date = fields.DateTime('%Y-%m-%d %H:%M')
+    users = fields.Nested(UserInfoSchema)
+    posts = fields.Nested(PostGeneralSchema)
