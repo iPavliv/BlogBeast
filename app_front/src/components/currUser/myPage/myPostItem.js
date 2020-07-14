@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import axios from 'axios';
 
-import { MAIN, BACK_APP } from '../../constants';
+import { MAIN, BACK_APP } from '../../../constants';
 
-import Like from '../main/like';
+import Like from '../../main/like';
 
 
 class MyPostItem extends Component {

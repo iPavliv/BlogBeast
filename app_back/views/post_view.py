@@ -96,18 +96,5 @@ class LikePostResource(Resource):
         return like, status.HTTP_200_OK
 
 
-class MyPageResource(Resource):
-    @login_required
-    def get(self):
-        user_id = get_current_user_id()
-        page, per_page = get_pagination()
-
-        post_list = Post.query.filter(Post.author_id == user_id).order_by(
-            desc(Post.post_date)).paginate(page=page, per_page=per_page)
-        posts = PostLoadSchema(many=True).dump(post_list.items)
-
-        return posts, status.HTTP_200_OK
-
-
 API.add_resource(PostResource, '/posts')
 API.add_resource(LikePostResource, '/like')

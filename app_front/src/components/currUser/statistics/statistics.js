@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 
-import { BACK_APP } from '../../constants';
+import { BACK_APP } from '../../../constants';
 
 import StatList from './statList';
 

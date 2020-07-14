@@ -7,8 +7,9 @@ import { BACK_APP } from '../../constants';
 class Follow extends Component {
 
     state = {
-        'isFollowing': '',
-        'userId': ''
+        "isFollowing": "",
+        "userId": "",
+        "display": true,
     }
 
     componentWillMount = () => {
@@ -18,7 +19,11 @@ class Follow extends Component {
 
         axios.get(url, { params: {'user_id': userId}, crossDomain:true, withCredentials:true },
         ).then( resp => {
-            this.setState({isFollowing: resp.data});
+            if (resp.data === "current_user") {
+                this.setState({isFollowing: false, display: false});
+            } else {
+                this.setState({isFollowing: resp.data});
+            }
         });
     }
 
@@ -36,9 +41,16 @@ class Follow extends Component {
 
     render() {
         const label = this.state.isFollowing ? "Unfollow" : "Follow";
+        let button;
+        if (this.state.display) {
+            button = <button htmlFor="follow-btn" className='follow' onClick={this.followUser}>{label}</button>;
+        } else {
+            button = undefined;
+        }
+
         return (
             <div>
-                <button htmlFor="follow-btn" className='follow' onClick={this.followUser}>{label}</button>
+                {button}
             </div>
         );
     }

@@ -11,9 +11,10 @@ import SetNewPassword from './components/auth/setNewPasswd';
 import Main from './components/main/main';
 import UserPage from './components/user/user';
 import Activity from './components/currUser/activity';
-import Statistics from './components/currUser/statistics';
-import MyPage from './components/currUser/myPage';
-import FollowersList from './components/followers/followers';
+import Statistics from './components/currUser/statistics/statistics';
+import MyPage from './components/currUser/myPage/myPage';
+import NewsPage from './components/currUser/newsPage';
+import FollowersList from './components/currUser/followers/followers';
 
 
 const Routers = () => {
@@ -31,7 +32,7 @@ const Routers = () => {
                     <Route path='/statistics' component={Statistics}/>
                     <Route path='/my_page' component={MyPage}/>
                     <Route path='/followers_list' component={FollowersList}/>
-                    <Route path='/news' component={Statistics}/>
+                    <Route path='/news' component={NewsPage}/>
                     <Route path='/reset_password' component={ResetPassword}/>
                     <Route path='/set_new_password' component={SetNewPassword}/>
                 </Switch>

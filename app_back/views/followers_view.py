@@ -61,13 +61,16 @@ class CheckFollowingResource(Resource):
     @login_required
     def get(self):
         user_id = get_current_user_id()
-        user_to_check = request.args['user_id']
+        user_to_check = int(request.args['user_id'])
+
+        if user_id == user_to_check:
+            response = 'current_user'
+            return response, status.HTTP_200_OK
 
         is_following = Followings.query.filter(Followings.follower == user_id).filter(
             Followings.follows == user_to_check).count()
 
         response = bool(is_following)
-
         return response, status.HTTP_200_OK
 
 

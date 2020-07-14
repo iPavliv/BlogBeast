@@ -5,9 +5,9 @@ import Tab from 'react-bootstrap/Tab';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 
-import { BACK_APP } from '../../constants';
+import { BACK_APP } from '../../../constants';
 
-import Follow from '../user/follow';
+import Follow from '../../user/follow';
 
 import './followers.css';
 

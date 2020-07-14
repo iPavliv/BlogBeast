@@ -4,16 +4,16 @@ import ReactPaginate from 'react-paginate';
 
 import { BACK_APP } from '../../constants';
 
-import MyPostItem from './myPostItem';
+import PostItem from '../main/postItem';
 
 
-class MyPostList extends Component {
+class NewsList extends Component {
 
     state = {
-      'page': 1,
-      'perPage': 5,
-      'posts': [],
-      'pageCount': 0,
+        'page': 1,
+        'perPage': 5,
+        'posts': [],
+        'pageCount': 0,
     };
 
     handlePageClick = (e) => {
@@ -28,19 +28,18 @@ class MyPostList extends Component {
     receivedData = () => {
 
         let getParams = {
-            "page": this.state.page,
-            "per_page": this.state.perPage,
-            "user_id": "current",
+          'page': this.state.page,
+          'per_page': this.state.perPage,
         };
 
-        let url = `${BACK_APP}/posts`;
+        let url = `${BACK_APP}/news`;
 
         axios.get(url, { params:getParams, crossDomain:true, withCredentials:true },
         ).then( resp => {
             const posts = resp.data.posts;
             const pageCount = resp.data.pages;
-            this.setState({posts: posts, pageCount: pageCount});}
-        );
+            this.setState({posts: posts, pageCount: pageCount});
+        });
     }
 
     componentDidMount() {
@@ -55,15 +54,15 @@ class MyPostList extends Component {
                         const username = post.users.username;
                         const userId = post.users.user_id;
                         return (<div key={post.post_id}>
-                                <MyPostItem
-                                    postId={post.post_id}
-                                    header={post.header}
-                                    postDate={post.post_date}
-                                    postText={post.post_text}
-                                    author={username}
-                                    authorId={userId}
-                                    likeCount={post.like_count}
-                                    isLiked={post.liked_by_curr_user}
+                            <PostItem
+                                postId={post.post_id}
+                                header={post.header}
+                                postDate={post.post_date}
+                                postText={post.post_text}
+                                author={username}
+                                authorId={userId}
+                                likeCount={post.like_count}
+                                isLiked={post.liked_by_curr_user}
                         /><hr /></div>);
                     })}
                     <ReactPaginate
@@ -84,4 +83,4 @@ class MyPostList extends Component {
     }
 }
 
-export default MyPostList;
+export default NewsList;

@@ -1,20 +1,18 @@
 import React, { Component } from "react";
 
-import MyPostList from './myPostList';
-import PostCreate from '../main/createPost';
+import NewsList from './newsList';
 
 
-class MyPage extends Component {
+class NewsPage extends Component {
     render() {
         return (
             <div className="Main">
                 <div className="align-profile">
-                    <PostCreate /><br />
-                    <MyPostList />
+                    <NewsList />
                 </div>
             </div>
         );
     }
 }
 
-export default MyPage;
+export default NewsPage;
