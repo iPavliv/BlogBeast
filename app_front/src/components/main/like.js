@@ -9,31 +9,31 @@ import './post.css';
 class Like extends Component {
 
     state = {
-        is_liked: this.props.is_liked,
-        like_count: this.props.like_count,
+        isLiked: this.props.isLiked,
+        likeCount: this.props.likeCount,
     }
 
     likePost = () => {
-        const post_id = {
-          "post_id": this.props.post_id,
+        const postId = {
+            "post_id": this.props.postId,
         };
 
         const url = `${BACK_APP}/like`;
 
-        axios.post(url, post_id, { withCredentials:true, crossDomain: true }
+        axios.post(url, postId, { withCredentials:true, crossDomain: true }
         ).then( respPost => {
-            axios.get(url, { params:post_id, crossDomain:true, withCredentials:true }
+            axios.get(url, { params:postId, crossDomain:true, withCredentials:true }
             ).then( respGet => {
-                this.setState({like_count: respGet.data, is_liked: !this.state.is_liked});
+                this.setState({likeCount: respGet.data, isLiked: !this.state.isLiked});
             });
         });
     }
 
     render() {
-        const imgSrc = this.state.is_liked ? "./liked.jpg" : "./like.png";
+        const imgSrc = this.state.isLiked ? "./liked.jpg" : "./like.png";
         return (
             <div className="like-container">
-                <label htmlFor="like-btn" className='like-post'>{this.state.like_count}</label>
+                <label htmlFor="like-btn" className="like-post">{this.state.likeCount}</label>
                 <img id="like-btn" alt="Like Button" className="like-post" src={imgSrc} onClick={this.likePost} />
             </div>
         );

@@ -49,15 +49,22 @@ class PostResource(Resource):
 
     @login_required
     def put(self):
-        user_id = get_current_user_id()
-
-        post = Post.query.filter(Post.author_id == user_id).filter(Post.post_id == request.json['post_id']).first()
+        post = Post.query.filter(Post.post_id == request.json['post_id']).first()
         post.post_text = request.json['post_text']
 
         DB.session.add(post)
         DB.session.commit()
 
-        response = {'message': 'Post updated.'}
+        response = {'message': 'Post has been successfully updated.'}
+        return response, status.HTTP_200_OK
+
+    def delete(self):
+        post = Post.query.filter(Post.post_id == request.json['post_id']).first()
+
+        DB.session.delete(post)
+        DB.session.commit()
+
+        response = {'message': 'Post has been successfully deleted.'}
         return response, status.HTTP_200_OK
 
 

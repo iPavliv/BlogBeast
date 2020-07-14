@@ -28,8 +28,8 @@ class PostCreate extends Component {
 
     handleSubmit = () => {
         const post_data = {
-          "header": this.state.header,
-          "post_text": this.state.postText,
+            "header": this.state.header,
+            "post_text": this.state.postText,
         };
 
         const url = `${BACK_APP}/posts`;

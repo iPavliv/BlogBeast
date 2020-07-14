@@ -35,10 +35,12 @@ class User(DB.Model):
     @staticmethod
     def verify_reset_token(token):
         serial = Serializer(current_app.config.get('SECRET_KEY'))
+
         try:
             user_id = serial.loads(token)['user_id']
         except (BadSignature, SignatureExpired):
             return None
+
         return User.query.get(user_id)
 
 
@@ -57,7 +59,7 @@ class Post(DB.Model):
     author_id = DB.Column(DB.Integer, ForeignKey('users.user_id'))
     post_date = DB.Column(DB.DateTime)
 
-    likes = relationship('Like', backref='posts', lazy='dynamic')
+    likes = relationship('Like', backref='posts', cascade="all,delete", lazy='dynamic')
 
 
 class Like(DB.Model):

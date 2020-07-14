@@ -58,17 +58,17 @@ class PostList extends Component {
                 <div>
                     {this.state.posts.map(post => {
                         const username = post.users.username;
-                        const user_id = post.users.user_id;
+                        const userId = post.users.user_id;
                         return (<div key={post.post_id}>
                             <PostItem
-                                post_id={post.post_id}
+                                postId={post.post_id}
                                 header={post.header}
-                                post_date={post.post_date}
-                                post_text={post.post_text}
+                                postDate={post.post_date}
+                                postText={post.post_text}
                                 author={username}
-                                author_id={user_id}
-                                like_count={post.like_count}
-                                is_liked={post.liked_by_curr_user}
+                                authorId={userId}
+                                likeCount={post.like_count}
+                                isLiked={post.liked_by_curr_user}
                         /><hr /></div>);
                     })}
                     <ReactPaginate
