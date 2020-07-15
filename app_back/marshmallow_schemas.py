@@ -2,6 +2,7 @@ from marshmallow import fields, validates, ValidationError, post_dump
 from marshmallow.validate import Length, Regexp
 
 from . import MA
+from .utils import get_current_user_id
 
 
 class UserSignUpSchema(MA.Schema):
@@ -39,19 +40,28 @@ class UserInfoSchema(MA.Schema):
 
 class LikeCountSchema(MA.Schema):
     like_id = fields.Integer()
-    user = fields.Nested(UserInfoSchema)
+    user_id = fields.Integer()
 
 
 class PostLoadSchema(MA.Schema):
+    post_id = fields.Integer()
     header = fields.Str()
     post_text = fields.Str()
-    post_date = fields.Str()
+    post_date = fields.DateTime('%Y-%m-%d %H:%M')
     users = fields.Nested(UserInfoSchema)
     likes = fields.Nested(LikeCountSchema, many=True)
 
     @post_dump
-    def like_count(self, data, **kwargs):
+    def like_info(self, data, **kwargs):
         data['like_count'] = len(data['likes'])
+
+        user_likes = [like['user_id'] for like in data['likes']]
+        curr_user = get_current_user_id()
+
+        data['liked_by_curr_user'] = False
+        if curr_user in user_likes:
+            data['liked_by_curr_user'] = True
+
         return data
 
 
@@ -61,5 +71,14 @@ class PostGeneralSchema(MA.Schema):
 
 
 class LikeSchema(MA.Schema):
-    user = fields.Nested(UserInfoSchema)
-    post = fields.Nested(PostGeneralSchema)
+    like_id = fields.Integer()
+    users = fields.Nested(UserInfoSchema)
+    posts = fields.Nested(PostGeneralSchema)
+
+
+class CommentSchema(MA.Schema):
+    comment_id = fields.Integer()
+    comment_text = fields.Str()
+    comment_date = fields.DateTime('%Y-%m-%d %H:%M')
+    users = fields.Nested(UserInfoSchema)
+    posts = fields.Nested(PostGeneralSchema)

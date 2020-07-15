@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 
 from flask import Blueprint, g, session, request
 from flask_api import status
@@ -30,8 +30,8 @@ class StatisticsResource(Resource):
         if any(k not in request.args for k in ('date_from', 'date_to')):
             date_to = date_from = datetime.today()
         else:
-            date_from = datetime.strptime(request.args['date_from'], '%Y-%m-%d')
-            date_to = datetime.strptime(request.args['date_to'], '%Y-%m-%d')
+            date_from = datetime.strptime(request.args['date_from'][:10], '%Y-%m-%d')
+            date_to = datetime.strptime(request.args['date_to'][:10], '%Y-%m-%d')
 
         posts = Post.query.filter(Post.author_id == user_id).all()
         posts_ids_data = PostGeneralSchema(many=True).dump(posts)
@@ -39,7 +39,7 @@ class StatisticsResource(Resource):
 
         likes_per_date = {}
         for single_date in date_range(date_from, date_to):
-            likes = Like.query.filter(Like.post_id in posts_ids).filter(Like.like_date == single_date).all()
+            likes = Like.query.filter(Like.post_id.in_(posts_ids)).filter(Like.like_date == single_date).all()
             likes_per_date[str(single_date)] = LikeSchema(many=True).dump(likes)
 
         return likes_per_date, status.HTTP_200_OK

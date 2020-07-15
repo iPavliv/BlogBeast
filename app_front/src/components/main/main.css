@@ -1,0 +1,40 @@
+.Main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-post-container {
+    display: flex;
+    justify-content: center;
+    background-image: linear-gradient(to top, rgba(41, 108, 135, 0), rgba(41, 108, 135, 0.4));
+    width: 60%;
+    border-radius: 10%;
+}
+
+.post-list-container {
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    width: 60%;
+    display: flex;
+}
+
+.like-container {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+}
+
+.like-post {
+    height: 1.3rem;
+    width: 1.3rem;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.user-activity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5vh;
+}

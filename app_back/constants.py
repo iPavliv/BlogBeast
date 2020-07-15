@@ -4,4 +4,4 @@ USER_IDENTITY = 'identity'
 PAGE = 'page'
 PER_PAGE = 'per_page'
 DEFAULT_PAGE = 1
-DEFAULT_PER_PAGE = 15
+DEFAULT_PER_PAGE = 5

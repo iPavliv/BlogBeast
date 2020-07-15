@@ -1,0 +1,41 @@
+ul {
+    list-style-type: none;
+
+}
+
+li.follower-item {
+    justify-content: flex-start;
+    padding-left: 10vh;
+    padding-top: 2vh;
+}
+
+.follower-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.follow {
+    border: 1px solid #fff;
+    border-radius: 45%;
+    font-size: 14px;
+    background-color: #008800;
+    color: #fff;
+    padding: 3px;
+}
+
+.follow:hover {
+    color: #f5f542;
+}
+
+.followers-list {
+    display: flex;
+    flex-direction: column;
+}
+
+#tab-item {
+    display: flex;
+    height: 100%;
+}

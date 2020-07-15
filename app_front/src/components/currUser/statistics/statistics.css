@@ -1,0 +1,29 @@
+button.post-edit-btn {
+    display: flex;
+    flex-direction: row;
+}
+
+.statistics {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 3vh;
+}
+
+#date-pickr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3vh;
+}
+
+.statistics-list {
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-item, h4.statistics-list {
+    display: flex;
+    justify-content: center;
+    margin: 2vh;
+}
