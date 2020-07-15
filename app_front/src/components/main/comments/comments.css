@@ -1,0 +1,45 @@
+.comment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+}
+
+.comment-list-container {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+}
+
+h6#comment-item {
+    text-align: right;
+    font-size: 0.7rem;
+}
+
+.comment-text {
+    text-align: justify;
+    font-size: 0.9rem;
+}
+
+.comment-pages {
+    transform: scale(0.8);
+}
+
+.create-comment {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+}
+
+#commentText {
+    font-size: 0.9rem;
+    width: 90%;
+    align-self: center;
+}
+
+#comment-btn {
+    width: 40%;
+    align-self: center;
+    font-size: 0.9rem;
+}

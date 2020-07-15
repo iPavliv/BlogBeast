@@ -41,11 +41,13 @@ class Statistics extends Component {
 
     render() {
         return (
-            <div className="user-activity">
-                <DateRangePicker
-                    onChange={this.onChange}
-                    value={this.state.dateRange}
-                /><br />
+            <div className="statistics">
+                <div id="date-pickr">
+                    <DateRangePicker
+                        onChange={this.onChange}
+                        value={this.state.dateRange}
+                    />
+                </div>
                 {this.state.stats.map(stat => {
                     const date = stat.date;
                     const statArr = stat.stat;

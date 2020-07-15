@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import MyPostList from './myPostList';
 import PostCreate from '../../main/posts/createPost';
 
+import './myPage.css';
+
 
 class MyPage extends Component {
     render() {

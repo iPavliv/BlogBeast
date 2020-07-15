@@ -1,6 +1,12 @@
-/*ul {
+ul {
     list-style-type: none;
 
+}
+
+li.follower-item {
+    justify-content: flex-start;
+    padding-left: 10vh;
+    padding-top: 2vh;
 }
 
 .follower-item {
@@ -23,4 +29,13 @@
 .follow:hover {
     color: #f5f542;
 }
-*/
+
+.followers-list {
+    display: flex;
+    flex-direction: column;
+}
+
+#tab-item {
+    display: flex;
+    height: 100%;
+}

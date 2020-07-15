@@ -7,14 +7,14 @@ import { BACK_APP } from '../../constants';
 class Activity extends Component {
 
     state = {
-        'lastLogin': '',
-        'lastRequest': '',
+        "lastLogin": "",
+        "lastRequest": "",
     }
 
     componentWillMount = () => {
         const url = `${BACK_APP}/activity`;
 
-        axios.get(url, { crossDomain:true, withCredentials:true },
+        axios.get(url, { crossDomain: true, withCredentials: true },
         ).then( resp => {
             const activityInfo = resp.data;
             this.setState({lastLogin: activityInfo.last_login, lastRequest: activityInfo.last_request});
@@ -23,7 +23,7 @@ class Activity extends Component {
 
     render() {
         return (
-            <div className='user-activity'>
+            <div className="user-activity">
                 <p>Last time signed in: {this.state.lastLogin}</p>
                 <p>Last request: {this.state.lastRequest}</p>
             </div>

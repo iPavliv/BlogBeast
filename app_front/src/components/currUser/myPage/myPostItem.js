@@ -59,14 +59,17 @@ class MyPostItem extends Component {
             />,
             editBtn: <input
                 id="edit-post-btn"
+                className="auth-input"
                 type="button"
                 onClick={this.handleSubmit}
-                value='Save'
+                value="Save"
             />,
             closeEdit: <input
+                id="edit-post-btn"
                 type="button"
+                className="auth-input"
                 onClick={this.closeEditBtn}
-                value='Discard'
+                value="Discard"
             />,
         });
     }
@@ -100,15 +103,24 @@ class MyPostItem extends Component {
             <div className="post-item">
                 <h4>{this.props.header}</h4>
                 <h6>{this.props.postDate}</h6>
-                <div className="post-edit-btn">
-                    <button className="follow" onClick={this.deletePost}>Delete</button>
+                <div className="post-delete-btn">
+                    <input id="delete-btn"
+                        className="auth-input"
+                        type="button"
+                        onClick={this.deletePost}
+                        value="Delete"
+                />
                 </div><br />
                 <p className="post-text" onClick={this.editText}>{this.props.postText}</p>
-                {this.state.editLabel}
-                {this.state.editInput}
-                {this.state.editBtn}
-                {this.state.closeEdit}
                 <Like postId={this.props.postId} likeCount={this.props.likeCount} isLiked={this.props.isLiked}/>
+                <div className="edit-post">
+                    {this.state.editLabel}
+                    {this.state.editInput}
+                    <div className="edit-buttons">
+                        {this.state.editBtn}
+                        {this.state.closeEdit}
+                    </div>
+                </div>
                 <Comments key={this.state.postId}
                     postId={this.state.postId}
                 />

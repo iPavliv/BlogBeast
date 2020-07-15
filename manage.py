@@ -29,7 +29,7 @@ APP.register_blueprint(NEWS_BLUEPRINT)
 
 @APP.before_request
 def before_request():
-    g.request_start_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    g.request_start_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
 
 def make_shell_context():
@@ -40,4 +40,9 @@ manager.add_command('shell', Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
+    try:
+        os.mkdir('logs')
+    except OSError as e:
+        print('Skip logs directory creation...')
+
     manager.run()

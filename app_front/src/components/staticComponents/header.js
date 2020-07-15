@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import cookie from 'react-cookies';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
+import './header.css';
+
 class Header extends Component {
 
     state = {
@@ -15,13 +17,18 @@ class Header extends Component {
 
     componentDidMount() {
         const authorized = cookie.load('authorized');
-        console.log();
+        const imgSrc = "./dark_logo.png";
+
         if (authorized) {
             this.setState({
                 element1: undefined,
                 element2: undefined,
                 element3: <Nav.Link href="/auth/sign_out">Sign out</Nav.Link>,
-                element4: <NavDropdown title="BlogBeast" id="collasible-nav-dropdown">
+                element4: <NavDropdown title={
+                        <img className="logo"
+                            src={imgSrc}
+                            alt="Logo"
+                        />} id="collasible-nav-dropdown">
                     <NavDropdown.Item href="/followers_list">Followers</NavDropdown.Item>
                     <NavDropdown.Item href="/news">News</NavDropdown.Item>
                     <NavDropdown.Item href="/activity">My activity</NavDropdown.Item>

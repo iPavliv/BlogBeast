@@ -60,8 +60,8 @@ class Post(DB.Model):
     author_id = DB.Column(DB.Integer, ForeignKey('users.user_id'))
     post_date = DB.Column(DB.DateTime)
 
-    likes = relationship('Like', backref='posts', cascade="all,delete", lazy='dynamic')
-    comments = relationship('Comment', backref='posts', cascade="all,delete", lazy='dynamic')
+    likes = relationship('Like', backref='posts', cascade='all,delete', lazy='dynamic')
+    comments = relationship('Comment', backref='posts', cascade='all,delete', lazy='dynamic')
 
 
 class Like(DB.Model):

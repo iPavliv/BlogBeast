@@ -6,7 +6,7 @@ class CommentItem extends Component {
     render() {
         return (
             <div className="comment-item">
-                <h6>{this.props.commentDate} by&nbsp;
+                <h6 id="comment-item">{this.props.commentDate} by&nbsp;
                 <Link className="comment-link" to={`/user?user_id=${this.props.authorId}`}>
                 {this.props.author}</Link></h6>
                 <p className="comment-text">{this.props.commentText}</p>

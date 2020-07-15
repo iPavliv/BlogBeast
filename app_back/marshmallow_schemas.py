@@ -41,7 +41,6 @@ class UserInfoSchema(MA.Schema):
 class LikeCountSchema(MA.Schema):
     like_id = fields.Integer()
     user_id = fields.Integer()
-    #user = fields.Nested(UserInfoSchema)
 
 
 class PostLoadSchema(MA.Schema):

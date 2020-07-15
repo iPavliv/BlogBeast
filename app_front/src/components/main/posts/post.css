@@ -36,7 +36,6 @@ input[type=text]#header {
     display: flex;
     align-self: center;
     justify-content: center;
-    width: 40%;
 }
 
 .pagination > .active > a{
@@ -53,4 +52,5 @@ input[type=text]#header {
 p.post-text {
     margin-top: 2vh;
     text-align: justify;
+    font-size: 1rem;
 }

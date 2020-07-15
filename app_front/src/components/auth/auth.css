@@ -33,7 +33,7 @@ input[type=button].auth-input {
 
 input[type=button].auth-input:hover {
     color: #ffffff;
-    background-color: #044711;
+    background-color: #0f408a;
 }
 
 input[type=button]#auth-btn:disabled {

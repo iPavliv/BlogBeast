@@ -65,18 +65,20 @@ class NewsList extends Component {
                                 isLiked={post.liked_by_curr_user}
                         /><hr /></div>);
                     })}
-                    <ReactPaginate
-                        previousLabel={"Prev"}
-                        nextLabel={"Next"}
-                        breakLabel={"..."}
-                        breakClassName={"break-me"}
-                        pageCount={this.state.pageCount}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={this.handlePageClick}
-                        containerClassName={"pagination"}
-                        subContainerClassName={"pages pagination"}
-                        activeClassName={"active"}/>
+                    <div className="paginate-item">
+                        <ReactPaginate
+                            previousLabel={"Prev"}
+                            nextLabel={"Next"}
+                            breakLabel={"..."}
+                            breakClassName={"break-me"}
+                            pageCount={this.state.pageCount}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={this.handlePageClick}
+                            containerClassName={"pagination"}
+                            subContainerClassName={"pages pagination"}
+                            activeClassName={"active"}/>
+                    </div>
                 </div>
             </div>
         );

@@ -6,13 +6,15 @@ import { BACK_APP } from '../../../constants';
 
 import CommentItem from './commentItem';
 
+import './comments.css';
+
 
 class Comments extends Component {
     state = {
         "commentText": "",
         "commentsShouldUpdate": false,
         "page": 1,
-        "perPage": 5,
+        "perPage": 3,
         "pageCount": 0,
         "comments": [],
         "postId": this.props.postId,
@@ -75,8 +77,9 @@ class Comments extends Component {
 
     render() {
         return (
-            <div>
-                <div>
+            <div className="comment-container">
+                <div className="comment-list-container">
+                    <hr />
                     {this.state.comments.map(comment => {
                         const username = comment.users.username;
                         const userId = comment.users.user_id;
@@ -89,20 +92,22 @@ class Comments extends Component {
                                 authorId={userId}
                         /><hr /></div>);
                     })}
-                    <ReactPaginate
-                        previousLabel={"Prev"}
-                        nextLabel={"Next"}
-                        breakLabel={"..."}
-                        breakClassName={"break-me"}
-                        pageCount={this.state.pageCount}
-                        marginPagesDisplayed={2}
-                        pageRangeDisplayed={5}
-                        onPageChange={this.handlePageClick}
-                        containerClassName={"pagination"}
-                        subContainerClassName={"pages pagination"}
-                        activeClassName={"active"}/>
+                    <div className="paginate-item comment-pages">
+                        <ReactPaginate
+                            previousLabel={"Prev"}
+                            nextLabel={"Next"}
+                            breakLabel={"..."}
+                            breakClassName={"break-me"}
+                            pageCount={this.state.pageCount}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={this.handlePageClick}
+                            containerClassName={"pagination"}
+                            subContainerClassName={"pages pagination"}
+                            activeClassName={"active"}/>
+                    </div>
                 </div>
-                <div>
+                <div className="create-comment">
                     <textarea id="commentText"
                               name="comment-text"
                               rows="2"
@@ -111,10 +116,11 @@ class Comments extends Component {
                               defaultValue={this.state.defaultPostText}
                     />
                     <input id="comment-btn"
+                           className="auth-input"
                            disabled={!this.validateForm()}
                            type="button"
                            onClick={this.handleSubmit}
-                           value='Comment'
+                           value="Comment"
                     />
                 </div>
             </div>
