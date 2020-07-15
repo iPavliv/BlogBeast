@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import queryString from 'query-string';
 
-import PostList from '../main/postList';
+import PostList from '../main/posts/postList';
 import Follow from './follow';
 
 
 class UserPage extends Component {
 
     state = {
-        'userId': '',
+        "userId": "",
     }
 
     componentWillMount = () => {
@@ -18,9 +18,11 @@ class UserPage extends Component {
 
     render() {
         return (
-            <div className="align-profile">
+            <div className="Main">
                 <Follow userId={this.state.userId}/>
-                <PostList user_id={this.state.userId} />
+                <div className="post-list-container">
+                    <PostList userId={this.state.userId} />
+                </div>
             </div>
         );
     }

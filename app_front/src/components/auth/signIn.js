@@ -11,8 +11,8 @@ import './auth.css';
 class SignIn extends Component {
 
     state = {
-      'email': "",
-      'password': ""
+      "email": "",
+      "password": ""
     };
 
     validateForm() {
@@ -36,7 +36,7 @@ class SignIn extends Component {
 
         axios.post(url, user, { withCredentials:true, crossDomain: true }
         ).then( resp => {
-            cookie.save('authorized', true, { path: '/' });
+            cookie.save("authorized", true, { path: "/" });
             window.location = `${MAIN}`; }
         ).catch( error => { alert(error.response.data.error) });
     }
@@ -44,30 +44,30 @@ class SignIn extends Component {
     render() {
         return (
             <div className="SignIn">
-                <div className="align-profile">
-                    <label className="users" htmlFor="email">Email:</label>
+                <div className="align-center">
+                    <label className="auth" htmlFor="email">Email:</label>
                     <input id="email"
-                        className="user-input"
+                        className="auth-input"
                         type="email"
                         onChange={this.handleChange}
-                    /><br />
-                    <label className="users" htmlFor="password">Password:</label>
+                    />
+                    <label className="auth" htmlFor="password">Password:</label>
                     <input id="password"
-                        className="user-input"
+                        className="auth-input"
                         onChange={this.handleChange}
                         type="password"
                     />
                 </div>
-                <Link className="sign-in-link" to="/reset_password">I have forgotten my password :(</Link>
+                <Link className="auth-link" to="/reset_password">I have forgotten my password :(</Link>
                 <input
-                    id="users-btn"
-                    className="user-input"
+                    id="auth-btn"
+                    className="auth-input"
                     disabled={!this.validateForm()}
                     type="button"
                     onClick={this.handleSubmit}
-                    value='Sign in'
+                    value="Sign in"
                 />
-                <Link className="sign-in-link" to="/auth/sign_up">New user? Click here to sign up.</Link>
+                <Link className="auth-link" to="/auth/sign_up">New user? Click here to sign up.</Link>
             </div>
         );
     }

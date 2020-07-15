@@ -3,8 +3,8 @@ import cookie from 'react-cookies';
 
 import { MAIN } from '../../constants';
 
-import PostList from './postList';
-import PostCreate from './createPost';
+import PostList from './posts/postList';
+import PostCreate from './posts/createPost';
 
 import './main.css';
 
@@ -12,7 +12,7 @@ import './main.css';
 class Main extends Component {
 
     componentDidMount() {
-        const authorized = cookie.load('authorized');
+        const authorized = cookie.load("authorized");
         if (!authorized) {
             window.location = `${MAIN}/auth/sign_in`;
         }
@@ -21,8 +21,10 @@ class Main extends Component {
     render() {
         return (
             <div className="Main">
-                <div className="align-profile">
-                    <PostCreate /><br />
+                <div className="create-post-container">
+                    <PostCreate />
+                </div>
+                <div className="post-list-container">
                     <PostList />
                 </div>
             </div>

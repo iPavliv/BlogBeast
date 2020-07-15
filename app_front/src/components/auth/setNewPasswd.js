@@ -6,38 +6,22 @@ import { MAIN, BACK_APP } from '../../constants';
 
 class SetNewPassword extends Component {
     state = {
-      'password': "",
-      'password2': ""
+        "password": "",
+        "password2": ""
     };
 
     validateForm() {
-        return this.state['password'].length && this.state['password2'].length;
+        return this.state["password"].length && this.state["password2"].length;
     }
 
     validate = () => {
-        let passwordValid = true;
-        let password2Valid = true;
+        const password = this.state.password;
+        const password2 = this.state.password2;
 
-        if (this.state.password.length < 4) {
-            passwordValid = false;
-            // eslint-disable-next-line no-undef
-            password.setCustomValidity("Password is too short.");
-        } else {
-            // eslint-disable-next-line no-undef
-            password.setCustomValidity("");
-        }
-        if (this.state.password !== this.state.password2) {
-            password2Valid = false;
-            // eslint-disable-next-line no-undef
-            password2.setCustomValidity("Repeat password correctly.");
-        } else {
-            // eslint-disable-next-line no-undef
-            password2.setCustomValidity("");
-        }
+        let passwordValid = (password.length < 4) ? true : false;
+        let password2Valid = (password !== password2) ? true : false;
 
-        if (passwordValid && password2Valid) return true;
-
-        return false;
+        return passwordValid && password2Valid;
     }
 
     handleChange = event => {
@@ -50,51 +34,54 @@ class SetNewPassword extends Component {
         // eslint-disable-next-line no-restricted-globals
         event.preventDefault();
         const isValid = this.validate();
-        if (isValid) {
-            const newPassword = {
-                "password": this.state.password
-            };
-
-            const values = queryString.parse(this.props.location.search);
-            const url = `${BACK_APP}/reset_password?token=${values.token}`;
-            const redir = `${MAIN}/auth/sign_in`;
-
-
-            axios.put(url, newPassword, { withCredentials:true, crossDomain: true }
-            ).then( response => {
-                alert(response.data.message);
-                window.location = redir;
-            }).catch( error => {
-                alert(error.response.data.error);
-            });
+        if (!isValid) {
+            alert("Passwords should match!");
+            return;
         }
+
+        const newPassword = {
+            "password": this.state.password
+        };
+
+        const values = queryString.parse(this.props.location.search);
+        const url = `${BACK_APP}/reset_password?token=${values.token}`;
+        const redir = `${MAIN}/auth/sign_in`;
+
+
+        axios.put(url, newPassword, { withCredentials: true, crossDomain: true }
+        ).then( response => {
+            alert(response.data.message);
+            window.location = redir;
+        }).catch( error => {
+            alert(error.response.data.error);
+        });
     }
 
     render() {
         return (
             <div className="ResetPassword">
-                <div className="align-profile">
-                    <label className="users-passwd" htmlFor="password">Password:</label>
+                <div className="align-center">
+                    <label className="auth" htmlFor="password">Password:</label>
                     <input id="password"
-                        className="user-input"
-                        onChange={this.handleChange}
-                        type="password"
-                    /><br />
-                    <label className="users-passwd" htmlFor="password2">Submit password:</label>
-                    <input id="password2"
-                        className="user-input"
+                        className="auth-input"
                         onChange={this.handleChange}
                         type="password"
                     />
+                    <label className="auth" htmlFor="password2">Submit password:</label>
+                    <input id="password2"
+                        className="auth-input"
+                        onChange={this.handleChange}
+                        type="password"
+                    />
+                    <input
+                        className="auth-input"
+                        id="auth-btn"
+                        disabled={!this.validateForm()}
+                        type="button"
+                        onClick={this.handleSubmit}
+                        value="Set new password"
+                    />
                 </div>
-                <input
-                    className="user-input"
-                    id="users-btn"
-                    disabled={!this.validateForm()}
-                    type="button"
-                    onClick={this.handleSubmit}
-                    value='Set new password'
-                />
             </div>
         );
     }

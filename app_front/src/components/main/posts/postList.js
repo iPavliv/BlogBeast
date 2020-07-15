@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 
-import { BACK_APP } from '../../constants';
+import { BACK_APP } from '../../../constants';
 
 import PostItem from './postItem';
 
@@ -10,10 +10,10 @@ import PostItem from './postItem';
 class PostList extends Component {
 
     state = {
-        'page': 1,
-        'perPage': 5,
-        'posts': [],
-        'pageCount': 0,
+        "page": 1,
+        "perPage": 5,
+        "posts": [],
+        "pageCount": 0,
     };
 
     handlePageClick = (e) => {
@@ -28,15 +28,15 @@ class PostList extends Component {
     receivedData = () => {
 
         let getParams = {
-          'page': this.state.page,
-          'per_page': this.state.perPage,
+            "page": this.state.page,
+            "per_page": this.state.perPage,
         };
 
         let url = `${BACK_APP}/`;
 
-        if (this.props.user_id) {
+        if (this.props.userId) {
             url = `${BACK_APP}/posts`;
-            getParams.user_id = this.props.user_id;
+            getParams.user_id = this.props.userId;
         }
 
         axios.get(url, { params: getParams, crossDomain: true, withCredentials: true },
@@ -53,23 +53,23 @@ class PostList extends Component {
 
     render() {
         return (
-            <div className='post-list'>
-                <div>
-                    {this.state.posts.map(post => {
-                        const username = post.users.username;
-                        const userId = post.users.user_id;
-                        return (<div key={post.post_id}>
-                            <PostItem
-                                postId={post.post_id}
-                                header={post.header}
-                                postDate={post.post_date}
-                                postText={post.post_text}
-                                author={username}
-                                authorId={userId}
-                                likeCount={post.like_count}
-                                isLiked={post.liked_by_curr_user}
-                        /><hr /></div>);
-                    })}
+            <div className="post-list">
+                {this.state.posts.map(post => {
+                    const username = post.users.username;
+                    const userId = post.users.user_id;
+                    return (<div key={post.post_id}>
+                        <PostItem
+                            postId={post.post_id}
+                            header={post.header}
+                            postDate={post.post_date}
+                            postText={post.post_text}
+                            author={username}
+                            authorId={userId}
+                            likeCount={post.like_count}
+                            isLiked={post.liked_by_curr_user}
+                    /><hr /></div>);
+                })}
+                <div className="paginate-item">
                     <ReactPaginate
                         previousLabel={"Prev"}
                         nextLabel={"Next"}

@@ -17,7 +17,7 @@ class Follow extends Component {
         const url = `${BACK_APP}/check_follower`;
         this.setState({userId: userId});
 
-        axios.get(url, { params: {'user_id': userId}, crossDomain:true, withCredentials:true },
+        axios.get(url, { params: {"user_id": userId}, crossDomain:true, withCredentials:true },
         ).then( resp => {
             if (resp.data === "current_user") {
                 this.setState({isFollowing: false, display: false});
@@ -29,11 +29,11 @@ class Follow extends Component {
 
     followUser = () => {
         const userId = {
-          "user_id": this.state.userId,
+            "user_id": this.state.userId,
         };
         const url = `${BACK_APP}/followers`;
 
-        axios.post(url, userId, { withCredentials:true, crossDomain: true }
+        axios.post(url, userId, { withCredentials: true, crossDomain: true }
         ).then( respPost => {
             this.setState({isFollowing: respPost.data});
         });
@@ -43,7 +43,7 @@ class Follow extends Component {
         const label = this.state.isFollowing ? "Unfollow" : "Follow";
         let button;
         if (this.state.display) {
-            button = <button htmlFor="follow-btn" className='follow' onClick={this.followUser}>{label}</button>;
+            button = <button htmlFor="follow-btn" className="follow" onClick={this.followUser}>{label}</button>;
         } else {
             button = undefined;
         }

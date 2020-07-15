@@ -1,0 +1,56 @@
+.create-post {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 35vw;
+    margin-bottom: 3vh;
+    margin-top: 3vh;
+}
+
+input[type=text]#header {
+    margin-bottom: 3vh;
+}
+
+.post-list {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.post-item h6 {
+    font-size: 0.8rem;
+}
+
+.post-link {
+    font-size: 0.9rem;
+}
+
+.post-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3vh;
+}
+
+.paginate-item {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    width: 40%;
+}
+
+.pagination > .active > a{
+    background-color: #47a0c9;
+    border-color: #47a0c9;
+    color: #fff;
+}
+
+#post-btn {
+    width: 40%;
+    align-self: center;
+}
+
+p.post-text {
+    margin-top: 2vh;
+    text-align: justify;
+}

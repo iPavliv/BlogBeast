@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 
-import { MAIN, BACK_APP } from '../../constants';
-
-import './main.css';
+import { MAIN, BACK_APP } from '../../../constants';
 
 
 class PostCreate extends Component {
@@ -41,7 +39,7 @@ class PostCreate extends Component {
 
     render() {
         return (
-            <div className='create-post-item'>
+            <div className="create-post">
                 <input id="header"
                        type="text"
                        defaultValue={this.state.defaultHeader}
@@ -55,10 +53,11 @@ class PostCreate extends Component {
                           defaultValue={this.state.defaultPostText}
                 />
                 <input id="post-btn"
+                       className="auth-input"
                        disabled={!this.validateForm()}
                        type="button"
                        onClick={this.handleSubmit}
-                       value='Post'
+                       value="Post"
                 />
             </div>
         );

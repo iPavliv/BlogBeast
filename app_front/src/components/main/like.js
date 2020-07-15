@@ -3,14 +3,12 @@ import axios from 'axios';
 
 import { BACK_APP } from '../../constants';
 
-import './post.css';
-
 
 class Like extends Component {
 
     state = {
-        isLiked: this.props.isLiked,
-        likeCount: this.props.likeCount,
+        "isLiked": this.props.isLiked,
+        "likeCount": this.props.likeCount,
     }
 
     likePost = () => {

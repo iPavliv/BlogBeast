@@ -2,18 +2,18 @@ import React, { Component } from "react";
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 
-import { BACK_APP } from '../../constants';
+import { BACK_APP } from '../../../constants';
 
-import PostItem from '../main/postItem';
+import PostItem from '../../main/posts/postItem';
 
 
 class NewsList extends Component {
 
     state = {
-        'page': 1,
-        'perPage': 5,
-        'posts': [],
-        'pageCount': 0,
+        "page": 1,
+        "perPage": 5,
+        "posts": [],
+        "pageCount": 0,
     };
 
     handlePageClick = (e) => {
@@ -28,13 +28,13 @@ class NewsList extends Component {
     receivedData = () => {
 
         let getParams = {
-          'page': this.state.page,
-          'per_page': this.state.perPage,
+            "page": this.state.page,
+            "per_page": this.state.perPage,
         };
 
         let url = `${BACK_APP}/news`;
 
-        axios.get(url, { params:getParams, crossDomain:true, withCredentials:true },
+        axios.get(url, { params: getParams, crossDomain: true, withCredentials: true },
         ).then( resp => {
             const posts = resp.data.posts;
             const pageCount = resp.data.pages;
@@ -48,7 +48,7 @@ class NewsList extends Component {
 
     render() {
         return (
-            <div className='post-list'>
+            <div className="post-list">
                 <div>
                     {this.state.posts.map(post => {
                         const username = post.users.username;

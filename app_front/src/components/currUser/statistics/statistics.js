@@ -11,11 +11,11 @@ import './statistics.css';
 
 class Statistics extends Component {
     state = {
-        'stats': [{
-            'date': '',
-            'stat': [],
+        "stats": [{
+            "date": "",
+            "stat": [],
         }],
-        'dateRange': [new Date(), new Date()],
+        "dateRange": [new Date(), new Date()],
     }
 
     onChange = (dateRange) => {
@@ -23,8 +23,8 @@ class Statistics extends Component {
         else this.setState({dateRange: [new Date(), new Date()]});
 
         const getParams = {
-            'date_from': this.state.dateRange[0],
-            'date_to': this.state.dateRange[1],
+            "date_from": this.state.dateRange[0],
+            "date_to": this.state.dateRange[1],
         }
         const url = `${BACK_APP}/statistics`;
 
@@ -41,7 +41,7 @@ class Statistics extends Component {
 
     render() {
         return (
-            <div className='user-activity'>
+            <div className="user-activity">
                 <DateRangePicker
                     onChange={this.onChange}
                     value={this.state.dateRange}

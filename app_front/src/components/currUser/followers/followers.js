@@ -14,12 +14,12 @@ import './followers.css';
 
 class FollowersList extends Component {
     state = {
-        'followers': [],
-        'follows': [],
-        'followersPageCount': 0,
-        'followsPageCount': 0,
-        'page': 1,
-        'perPage': 20,
+        "followers": [],
+        "follows": [],
+        "followersPageCount": 0,
+        "followsPageCount": 0,
+        "page": 1,
+        "perPage": 20,
     }
 
     handlePageClick = (e) => {
@@ -33,13 +33,13 @@ class FollowersList extends Component {
 
     receivedData = () => {
         let getParams = {
-            'users': 'follower',
-            'page': this.state.page,
-            'per_page': this.state.perPage,
+            "users": "follower",
+            "page": this.state.page,
+            "per_page": this.state.perPage,
         }
         const url = `${BACK_APP}/followers`;
 
-        axios.get(url, { params:getParams, crossDomain:true, withCredentials:true },
+        axios.get(url, { params: getParams, crossDomain: true, withCredentials: true },
         ).then( resp => {
             const followers = resp.data.friends;
             const pageCount = resp.data.pages
@@ -47,12 +47,12 @@ class FollowersList extends Component {
         });
 
         getParams = {
-            'users': 'follows',
-            'page': this.state.page,
-            'per_page': this.state.perPage,
+            "users": "follows",
+            "page": this.state.page,
+            "per_page": this.state.perPage,
         }
 
-        axios.get(url, { params:getParams, crossDomain:true, withCredentials:true },
+        axios.get(url, { params: getParams, crossDomain: true, withCredentials: true },
         ).then( resp => {
             const follows = resp.data.friends;
             const pageCount = resp.data.pages
@@ -67,18 +67,18 @@ class FollowersList extends Component {
     render() {
         const followersList = this.state.followers.map( user =>
             <li className="follower-item" key={user.user_id}>
-                <Link className='user-link' to={`/user?user_id=${user.user_id}`}>{user.username}</Link>
+                <Link className="user-link" to={`/user?user_id=${user.user_id}`}>{user.username}</Link>
             </li>
         );
         const followsList = this.state.follows.map( user =>
             <li className="follower-item" key={user.user_id}>
-                <Link className='user-link' to={`/user?user_id=${user.user_id}`}>{user.username}</Link>&nbsp;
+                <Link className="user-link" to={`/user?user_id=${user.user_id}`}>{user.username}</Link>&nbsp;
                 <Follow userId={user.user_id}/>
             </li>
         );
 
         return (
-            <div className='followers-list'>
+            <div className="followers-list">
                 <Tabs defaultActiveKey="followers" transition={false}>
                     <Tab eventKey="followers" title="Followers">
                         <ul>{followersList}</ul>

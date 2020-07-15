@@ -1,72 +1,66 @@
-.SignIn, .SignUp .ResetPassword {
+.SignIn,
+.SignUp,
+.ResetPassword {
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-bottom: 40px;
-    margin-top: 10px;
-    justify-content: space-between;
+    margin-top: 10vh;
 }
 
-input[type=text].user-input,
-input[type=email].user-input,
-input[type=password].user-input {
+input[type=text].auth-input,
+input[type=email].auth-input,
+input[type=password].auth-input {
     box-shadow: none;
-    height: 40px;
-    width: 300px;
+    height: 5vh;
+    width: 20vw;
 }
 
-input[type=text]:invalid.user-input,
-input[type=email]:invalid.user-input,
-input[type=password]:invalid.user-input {
+input[type=text]:invalid.auth-input,
+input[type=email]:invalid.auth-input,
+input[type=password]:invalid.auth-input {
     border: 2px solid rgba(255, 46, 46, 1);
 }
 
-input[type=button].user-input {
+input[type=button].auth-input {
     border: 1px;
     border-color: #e8e26b;
     background-color: #e8e26b;
     color: #000000;
-    height: 40px;
-    width: 300px;
-    margin: 10px;
+    height: 5vh;
+    width: 20vw;
+    margin-top: 3vh;
 }
 
-input[type=button].user-input:hover {
+input[type=button].auth-input:hover {
     color: #ffffff;
     background-color: #044711;
 }
 
-input[type=button]#users-btn:disabled {
+input[type=button]#auth-btn:disabled {
     color: #969696;
     box-shadow: none;
 }
 
-.sign-in-link {
+.auth-link {
     color: #000000;
     font-size: 14px;
-    margin-top: 10px;
+    margin-top: 3vh;
 }
 
-.sign-in-link:hover {
+.auth-link:hover {
     color: #044711;
 }
 
-.align-profile {
+.align-center {
     display: flex;
-    align-items: center;
     flex-direction: column;
-    padding: 15px;
+    align-items: center;
 }
 
-label.users {
-    align-self: flex-start;
+label.auth {
+    display: flex;
     font-size: 18px;
     margin-bottom: 0px;
-    margin-left: -15px;
-}
-
-label.users-passwd {
+    margin-top: 2vh;
     align-self: flex-start;
-    font-size: 18px;
-    padding-left: 35%;
 }

@@ -7,7 +7,7 @@ class NewsPage extends Component {
     render() {
         return (
             <div className="Main">
-                <div className="align-profile">
+                <div className="post-list-container">
                     <NewsList />
                 </div>
             </div>

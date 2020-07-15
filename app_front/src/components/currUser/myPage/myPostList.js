@@ -10,10 +10,10 @@ import MyPostItem from './myPostItem';
 class MyPostList extends Component {
 
     state = {
-      'page': 1,
-      'perPage': 5,
-      'posts': [],
-      'pageCount': 0,
+        "page": 1,
+        "perPage": 5,
+        "posts": [],
+        "pageCount": 0,
     };
 
     handlePageClick = (e) => {
@@ -49,7 +49,7 @@ class MyPostList extends Component {
 
     render() {
         return (
-            <div className='post-list'>
+            <div className="post-list">
                 <div>
                     {this.state.posts.map(post => {
                         const username = post.users.username;

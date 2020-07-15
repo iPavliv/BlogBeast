@@ -4,6 +4,7 @@ import axios from 'axios';
 import { MAIN, BACK_APP } from '../../../constants';
 
 import Like from '../../main/like';
+import Comments from '../../main/comments/comments';
 
 
 class MyPostItem extends Component {
@@ -96,18 +97,21 @@ class MyPostItem extends Component {
 
     render() {
         return (
-            <div className='post-item'>
+            <div className="post-item">
                 <h4>{this.props.header}</h4>
                 <h6>{this.props.postDate}</h6>
-                <div className='post-edit-btn'>
-                    <button className='follow' onClick={this.deletePost}>Delete</button>
+                <div className="post-edit-btn">
+                    <button className="follow" onClick={this.deletePost}>Delete</button>
                 </div><br />
-                <p className='post-text' onClick={this.editText}>{this.props.postText}</p>
+                <p className="post-text" onClick={this.editText}>{this.props.postText}</p>
                 {this.state.editLabel}
                 {this.state.editInput}
                 {this.state.editBtn}
                 {this.state.closeEdit}
                 <Like postId={this.props.postId} likeCount={this.props.likeCount} isLiked={this.props.isLiked}/>
+                <Comments key={this.state.postId}
+                    postId={this.state.postId}
+                />
             </div>
         );
     }

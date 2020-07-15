@@ -8,7 +8,7 @@ class StatItem extends Component {
             <div>
                 <h6>
                     <q>{this.props.postHeader}</q>&nbsp;liked by&nbsp;
-                    <Link className='post-link' to={`/user?user_id=${this.props.userId}`}>
+                    <Link className="post-link" to={`/user?user_id=${this.props.userId}`}>
                         {this.props.username}</Link>
                 </h6>
             </div>
