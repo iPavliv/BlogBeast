@@ -117,8 +117,8 @@ class CommentResource(Resource):
     def get(self):
         page, per_page = get_pagination()
 
-        comments_list = Comment.query.filter(Comment.post_id == request.args['post_id']).paginate(
-            page=page, per_page=per_page)
+        comments_list = Comment.query.filter(Comment.post_id == request.args['post_id']).order_by(
+            desc(Comment.comment_date)).paginate(page=page, per_page=per_page)
         comments = CommentSchema(many=True).dump(comments_list.items)
 
         response = {'comments': comments, 'pages': comments_list.pages}
