@@ -110,7 +110,7 @@ class MyPostItem extends Component {
                         onClick={this.deletePost}
                         value="Delete"
                 />
-                </div><br />
+                </div>
                 <p className="post-text" onClick={this.editText}>{this.props.postText}</p>
                 <Like postId={this.props.postId} likeCount={this.props.likeCount} isLiked={this.props.isLiked}/>
                 <div className="edit-post">

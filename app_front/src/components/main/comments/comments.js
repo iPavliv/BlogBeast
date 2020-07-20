@@ -12,7 +12,6 @@ import './comments.css';
 class Comments extends Component {
     state = {
         "commentText": "",
-        "commentsShouldUpdate": false,
         "page": 1,
         "perPage": 3,
         "pageCount": 0,
@@ -67,7 +66,7 @@ class Comments extends Component {
         ).then( resp => {
             const comments = resp.data.comments;
             const pageCount = resp.data.pages;
-            this.setState({comments: comments, pageCount: pageCount});
+            this.setState({comments: comments, pageCount: pageCount, commentText: ""});
         });
     }
 
@@ -116,7 +115,7 @@ class Comments extends Component {
                               rows="2"
                               cols="50"
                               onChange={this.handleChange}
-                              defaultValue={this.state.defaultPostText}
+                              value={this.state.commentText}
                     />
                     <input id="comment-btn"
                            className="auth-input"
