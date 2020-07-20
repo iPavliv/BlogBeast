@@ -11,18 +11,13 @@ Share your mind, discuss your interests with other people, get a lot of content.
 
 
 ## Start app:
-To run back-end:
+In project directory:
+###Windows:
 ```
-python -m venv env
-env\scripts\activate or env/bin/activate
-pip install -r requirements.txt
-
-python manage.py db init
-python manage.py db upgrade
-python manage.py runserver
+start back.bat & start front.bat
 ```
-To run front-end, you need to install npm first. Then, in app_front directory:
+###Linux 
+#####not tested yet
 ```
-npm install
-npm start
+sudo bash run.sh
 ```

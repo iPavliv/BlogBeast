@@ -14,17 +14,19 @@ from app_back.views.followers_view import FOLLOWER_BLUEPRINT
 from app_back.views.index_view import INDEX_BLUEPRINT
 from app_back.views.news_view import NEWS_BLUEPRINT
 from app_back.views.post_view import POST_BLUEPRINT
+from dotenv import load_dotenv
 
-APP = create_app(os.getenv('FLASK_CONFIG') or 'default')
+load_dotenv()
+
+APP = create_app(os.getenv('FLASK_CONFIG'))
 manager = Manager(APP)
 migrate = Migrate(APP, DB)
 
-APP.register_blueprint(AUTH_BLUEPRINT)
-APP.register_blueprint(INDEX_BLUEPRINT)
-APP.register_blueprint(FOLLOWER_BLUEPRINT)
-APP.register_blueprint(POST_BLUEPRINT)
-APP.register_blueprint(CURR_USER_DATA_BLUEPRINT)
-APP.register_blueprint(NEWS_BLUEPRINT)
+BLUEPRINTS = (
+    AUTH_BLUEPRINT, INDEX_BLUEPRINT, FOLLOWER_BLUEPRINT, POST_BLUEPRINT, CURR_USER_DATA_BLUEPRINT, NEWS_BLUEPRINT,
+)
+for b in BLUEPRINTS:
+    APP.register_blueprint(b)
 
 
 @APP.before_request
