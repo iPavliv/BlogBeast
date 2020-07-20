@@ -76,6 +76,20 @@ class Comments extends Component {
     }
 
     render() {
+        let pages = this.state.pageCount > 1;
+        let pagination = pages ? <ReactPaginate
+            previousLabel={"Prev"}
+            nextLabel={"Next"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={this.state.pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={this.handlePageClick}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}/> : undefined;
+
         return (
             <div className="comment-container">
                 <div className="comment-list-container">
@@ -93,18 +107,7 @@ class Comments extends Component {
                         /><hr /></div>);
                     })}
                     <div className="paginate-item comment-pages">
-                        <ReactPaginate
-                            previousLabel={"Prev"}
-                            nextLabel={"Next"}
-                            breakLabel={"..."}
-                            breakClassName={"break-me"}
-                            pageCount={this.state.pageCount}
-                            marginPagesDisplayed={2}
-                            pageRangeDisplayed={5}
-                            onPageChange={this.handlePageClick}
-                            containerClassName={"pagination"}
-                            subContainerClassName={"pages pagination"}
-                            activeClassName={"active"}/>
+                        {pagination}
                     </div>
                 </div>
                 <div className="create-comment">

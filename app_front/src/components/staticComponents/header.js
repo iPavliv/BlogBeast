@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import cookie from 'react-cookies';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
+import { MAIN } from '../../constants';
+
 import './header.css';
 
 class Header extends Component {
@@ -17,7 +19,7 @@ class Header extends Component {
 
     componentDidMount() {
         const authorized = cookie.load("authorized");
-        const imgSrc = "./dark_logo.png";
+        const imgSrc = `${MAIN}/dark_logo.png`;
 
         if (authorized) {
             this.setState({
@@ -42,7 +44,12 @@ class Header extends Component {
                 element1: <Nav.Link href="/auth/sign_in">Sign in</Nav.Link>,
                 element2: <Nav.Link href="/auth/sign_up">Sign up</Nav.Link>,
                 element3: undefined,
-                element4: <Nav.Link href="#">BlogBeast</Nav.Link>,
+                element4: <Nav.Link href="#" id="unauthorized-logo">
+                    <img className="logo"
+                        src={imgSrc}
+                        alt="Logo"
+                    />
+                </Nav.Link>,
                 element5: undefined,
                 element6: undefined,
             });

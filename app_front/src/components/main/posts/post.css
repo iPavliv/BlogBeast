@@ -38,6 +38,11 @@ input[type=text]#header {
     justify-content: center;
 }
 
+.pagination > li > a{
+    padding: 0.3rem;
+    width: 1rem;
+}
+
 .pagination > .active > a{
     background-color: #47a0c9;
     border-color: #47a0c9;

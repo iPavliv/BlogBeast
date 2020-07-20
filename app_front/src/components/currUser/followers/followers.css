@@ -1,11 +1,9 @@
 ul {
     list-style-type: none;
-
+    padding-left: 0;
 }
 
 li.follower-item {
-    justify-content: flex-start;
-    padding-left: 10vh;
     padding-top: 2vh;
 }
 
