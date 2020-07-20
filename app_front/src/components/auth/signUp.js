@@ -33,13 +33,13 @@ class SignUp extends Component {
         const password = this.state.password;
         const password2 = this.state.password2;
 
-        let usernameValid = (!username.match(/^[A-Za-z][A-Za-z0-9._]*$/) || username.length < 3) ? true : false;
+        let usernameValid = (username.match(/^[A-Za-z][A-Za-z0-9._]*$/) && username.length > 3) ? true : false;
 
-        let emailValid = (!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) ? true : false;
+        let emailValid = (email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) ? true : false;
 
-        let passwordValid = (password.length < 4) ? true : false;
+        let passwordValid = (password.length > 4) ? true : false;
 
-        let password2Valid = (password !== password2) ? true : false;
+        let password2Valid = (password === password2) ? true : false;
 
         return usernameValid && emailValid && passwordValid && password2Valid;
     }

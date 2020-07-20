@@ -47,6 +47,20 @@ class NewsList extends Component {
     }
 
     render() {
+        let pages = this.state.pageCount > 1;
+        let pagination = pages ? <ReactPaginate
+            previousLabel={"Prev"}
+            nextLabel={"Next"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={this.state.pageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={this.handlePageClick}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}/> : undefined;
+
         return (
             <div className="post-list">
                 <div>
@@ -66,18 +80,7 @@ class NewsList extends Component {
                         /><hr /></div>);
                     })}
                     <div className="paginate-item">
-                        <ReactPaginate
-                            previousLabel={"Prev"}
-                            nextLabel={"Next"}
-                            breakLabel={"..."}
-                            breakClassName={"break-me"}
-                            pageCount={this.state.pageCount}
-                            marginPagesDisplayed={2}
-                            pageRangeDisplayed={5}
-                            onPageChange={this.handlePageClick}
-                            containerClassName={"pagination"}
-                            subContainerClassName={"pages pagination"}
-                            activeClassName={"active"}/>
+                        {pagination}
                     </div>
                 </div>
             </div>

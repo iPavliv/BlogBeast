@@ -77,43 +77,48 @@ class FollowersList extends Component {
             </li>
         );
 
+        let followersPageCount = this.state.followersPageCount > 1;
+        let followersPagination = followersPageCount ? <ReactPaginate
+            previousLabel={"Prev"}
+            nextLabel={"Next"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={this.state.followersPageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={this.handlePageClick}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}/> : undefined;
+
+        let followsPageCount = this.state.followsPageCount > 1;
+        let followsPagination = followsPageCount ? <ReactPaginate
+            previousLabel={"Prev"}
+            nextLabel={"Next"}
+            breakLabel={"..."}
+            breakClassName={"break-me"}
+            pageCount={this.state.followsPageCount}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={5}
+            onPageChange={this.handlePageClick}
+            containerClassName={"pagination"}
+            subContainerClassName={"pages pagination"}
+            activeClassName={"active"}/> : undefined;
+
+
         return (
             <div className="followers-list">
                 <Tabs defaultActiveKey="followers" transition={false} id="tab-item">
                     <Tab eventKey="followers" title="Followers">
                         <ul>{followersList}</ul>
                         <div className="paginate-item">
-                            <ReactPaginate
-                                previousLabel={"Prev"}
-                                nextLabel={"Next"}
-                                breakLabel={"..."}
-                                breakClassName={"break-me"}
-                                pageCount={this.state.followersPageCount}
-                                marginPagesDisplayed={2}
-                                pageRangeDisplayed={5}
-                                onPageChange={this.handlePageClick}
-                                containerClassName={"pagination"}
-                                subContainerClassName={"pages pagination"}
-                                activeClassName={"active"}
-                            />
+                            {followersPagination}
                         </div>
                     </Tab>
                     <Tab eventKey="follows" title="I follow">
                         <ul>{followsList}</ul>
                         <div className="paginate-item">
-                            <ReactPaginate
-                                previousLabel={"Prev"}
-                                nextLabel={"Next"}
-                                breakLabel={"..."}
-                                breakClassName={"break-me"}
-                                pageCount={this.state.followsPageCount}
-                                marginPagesDisplayed={2}
-                                pageRangeDisplayed={5}
-                                onPageChange={this.handlePageClick}
-                                containerClassName={"pagination"}
-                                subContainerClassName={"pages pagination"}
-                                activeClassName={"active"}
-                            />
+                            {followsPagination}
                         </div>
                     </Tab>
                 </Tabs>
