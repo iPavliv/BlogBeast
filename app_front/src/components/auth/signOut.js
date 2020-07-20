@@ -11,6 +11,7 @@ class SignOut extends Component {
         axios.post(url,  { withCredentials:true }
         ).then( () => {
             cookie.remove("authorized", { path: "/" });
+            cookie.remove("session", { path: "/" });
             window.location = `${MAIN}/auth/sign_in`;
         });
     }

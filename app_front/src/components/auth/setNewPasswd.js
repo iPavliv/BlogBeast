@@ -18,8 +18,8 @@ class SetNewPassword extends Component {
         const password = this.state.password;
         const password2 = this.state.password2;
 
-        let passwordValid = (password.length < 4) ? true : false;
-        let password2Valid = (password !== password2) ? true : false;
+        let passwordValid = (password.length >= 4) ? true : false;
+        let password2Valid = (password === password2) ? true : false;
 
         return passwordValid && password2Valid;
     }

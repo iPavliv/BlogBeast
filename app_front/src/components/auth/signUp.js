@@ -65,7 +65,7 @@ class SignUp extends Component {
         axios.post(url, user, { withCredentials: true }
         ).then( response => {
             alert(response.data.message);
-            window.location(`${MAIN}/sign_in`);
+            window.location(`${MAIN}/auth/sign_in`);
         }).catch( error => {
             alert(error.response.data.error);
         });
