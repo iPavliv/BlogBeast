@@ -11,6 +11,7 @@ class Config:
     JWT_ACCESS_TOKEN_EXPIRES = 86400  # 7200
     JWT_SESSION_COOKIE = False
     JWT_COOKIE_SECURE = True
+    SESSION_COOKIE_HTTPONLY=False
 
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 465

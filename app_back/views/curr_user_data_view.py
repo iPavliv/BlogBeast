@@ -27,11 +27,11 @@ class StatisticsResource(Resource):
     @login_required
     def get(self):
         user_id = get_current_user_id()
-        if any(k not in request.args for k in ('date_from', 'date_to')):
-            date_to = date_from = datetime.today()
-        else:
+        if all(request.args.get(k) for k in ('date_from', 'date_to')):
             date_from = datetime.strptime(request.args['date_from'][:10], '%Y-%m-%d')
             date_to = datetime.strptime(request.args['date_to'][:10], '%Y-%m-%d')
+        else:
+            date_to = date_from = datetime.today()
 
         posts = Post.query.filter(Post.author_id == user_id).all()
         posts_ids_data = PostGeneralSchema(many=True).dump(posts)

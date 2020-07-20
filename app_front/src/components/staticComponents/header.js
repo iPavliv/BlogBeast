@@ -16,7 +16,7 @@ class Header extends Component {
     };
 
     componentDidMount() {
-        const authorized = cookie.load('authorized');
+        const authorized = cookie.load("authorized");
         const imgSrc = "./dark_logo.png";
 
         if (authorized) {

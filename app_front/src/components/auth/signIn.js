@@ -28,8 +28,8 @@ class SignIn extends Component {
     handleSubmit = () => {
 
         const user = {
-          "email": this.state.email,
-          "password": this.state.password
+            "email": this.state.email,
+            "password": this.state.password
         };
 
         const url = `${BACK_APP}/sign_in`;
