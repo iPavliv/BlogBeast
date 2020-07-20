@@ -12,12 +12,12 @@ Share your mind, discuss your interests with other people, get a lot of content.
 
 ## Start app:
 In project directory:
-###Windows:
+### Windows:
 ```
 start back.bat & start front.bat
 ```
-###Linux 
-#####not tested yet
+### Linux 
+##### not tested yet
 ```
 sudo bash run.sh
 ```
