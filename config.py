@@ -4,7 +4,7 @@ BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'test'
+    SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     JWT_COOKIE_CSRF_PROTECT = True
@@ -15,8 +15,8 @@ class Config:
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 465
     MAIL_USE_SSL = True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or 'blog.beast.app@gmail.com'
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or 'qwe123rty456'
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
 
     @staticmethod
     def init_app(app):
@@ -31,5 +31,5 @@ class DevelopmentConfig(Config):
 
 config = {
     'development': DevelopmentConfig,
-    'default': DevelopmentConfig
+    'default': DevelopmentConfig,
 }
